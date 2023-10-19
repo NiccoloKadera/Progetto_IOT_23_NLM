@@ -1,0 +1,18 @@
+
+Cone repo:
+git clone [link repo]
+
+Update:
+
+
+
+Google:
+nlm23iot@gmail.com
+iot2023!
+
+Github
+iot23nlmrpi  ->  git config --global user.name "iot23nlmrpi"
+nlm23iot@gmail.com  ->  git config --global user.email "nlm23iot@gmail.com"
+iot2023!
+
+^git config --list
