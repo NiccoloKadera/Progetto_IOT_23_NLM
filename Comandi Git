@@ -2,17 +2,36 @@
 Cone repo:
 git clone [link repo]
 
-Update:
+Add files to update:
+git add .
 
+Add repo:
+git remote add rpi23iot https://github.com/NiccoloKadera/Progetto_IOT_23_NLM
+git remote -v
 
+Stato git:
+git status
+
+Git commit:
+git commit -m "fileinfo"
+
+Git push:
+git push -u origin
+git push -u rpi23iot
+Usrname: iot23nlmrpi
+Pass: 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
 
 Google:
 nlm23iot@gmail.com
 iot2023!
 
-Github
+Github:
 iot23nlmrpi  ->  git config --global user.name "iot23nlmrpi"
 nlm23iot@gmail.com  ->  git config --global user.email "nlm23iot@gmail.com"
 iot2023!
+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
 
 ^git config --list
+
+
+
