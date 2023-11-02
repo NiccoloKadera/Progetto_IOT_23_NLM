@@ -1,0 +1,79 @@
+[
+    {
+        "id": "116c72df0e25adda",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9bcc91baf2f703c7",
+        "type": "inject",
+        "z": "116c72df0e25adda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 140,
+        "wires": [
+            [
+                "ebd51fc0bc86eb13"
+            ]
+        ]
+    },
+    {
+        "id": "ebd51fc0bc86eb13",
+        "type": "http request",
+        "z": "116c72df0e25adda",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:1880/prova",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "cc04294bc3541502"
+            ]
+        ]
+    },
+    {
+        "id": "cc04294bc3541502",
+        "type": "debug",
+        "z": "116c72df0e25adda",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 200,
+        "wires": []
+    }
+]

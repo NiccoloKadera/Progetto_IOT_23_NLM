@@ -1,0 +1,596 @@
+[
+    {
+        "id": "22af38864955aec9",
+        "type": "tab",
+        "label": "13-10-23",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9f4b6387fb31fd76",
+        "type": "inject",
+        "z": "22af38864955aec9",
+        "name": "ciao mondo",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ciao mondo",
+        "payloadType": "str",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "15f09f67d03609da",
+                "bf14b0f34eaacb59",
+                "541f8f4d771f7881"
+            ]
+        ]
+    },
+    {
+        "id": "15f09f67d03609da",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bf14b0f34eaacb59",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "541f8f4d771f7881",
+        "type": "change",
+        "z": "22af38864955aec9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload1",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 260,
+        "wires": [
+            [
+                "880826ce5e9f9d8c"
+            ]
+        ]
+    },
+    {
+        "id": "880826ce5e9f9d8c",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f8acb16d7741f976",
+        "type": "inject",
+        "z": "22af38864955aec9",
+        "name": "inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"marca\":\"\",\"modello\":\"\",\"targa\":\"\"}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 420,
+        "wires": [
+            [
+                "fbe7d8f00f813a75",
+                "52adf9e0e0accd34",
+                "0879560703c03b43"
+            ]
+        ]
+    },
+    {
+        "id": "fbe7d8f00f813a75",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "52adf9e0e0accd34",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "0879560703c03b43",
+        "type": "change",
+        "z": "22af38864955aec9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.marca",
+                "pt": "msg",
+                "to": "Tesla",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.modello",
+                "pt": "msg",
+                "to": "x",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.targa",
+                "pt": "msg",
+                "to": "010101010",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 220,
+        "y": 580,
+        "wires": [
+            [
+                "69bfd9b11afbc7f9"
+            ]
+        ]
+    },
+    {
+        "id": "69bfd9b11afbc7f9",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "504013fb48c07466",
+        "type": "inject",
+        "z": "22af38864955aec9",
+        "name": "inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "array",
+                "v": "[1,2,3,4,5,6]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"marca\":\"\",\"modello\":\"\",\"targa\":\"\"}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 760,
+        "wires": [
+            [
+                "c2a97540802c3a85",
+                "4ff2e29857ccf29f",
+                "c68ae8c4aa1e0536"
+            ]
+        ]
+    },
+    {
+        "id": "c2a97540802c3a85",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "array[0]",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 448.3333282470703,
+        "y": 765.3333129882812,
+        "wires": []
+    },
+    {
+        "id": "4ff2e29857ccf29f",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 448.3333282470703,
+        "y": 845.3333129882812,
+        "wires": []
+    },
+    {
+        "id": "c68ae8c4aa1e0536",
+        "type": "change",
+        "z": "22af38864955aec9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.marca",
+                "pt": "msg",
+                "to": "Tesla",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.modello",
+                "pt": "msg",
+                "to": "x",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.targa",
+                "pt": "msg",
+                "to": "010101010",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 248.3333282470703,
+        "y": 925.3333129882812,
+        "wires": [
+            [
+                "8f35c7f24b733489"
+            ]
+        ]
+    },
+    {
+        "id": "8f35c7f24b733489",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 448.3333282470703,
+        "y": 925.3333129882812,
+        "wires": []
+    },
+    {
+        "id": "a4f2ddefcb66f65d",
+        "type": "inject",
+        "z": "22af38864955aec9",
+        "name": "inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "array",
+                "v": "[1,2,3,4,5,6]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"marca\":\"\",\"modello\":\"\",\"targa\":\"\"}",
+        "payloadType": "json",
+        "x": 90,
+        "y": 1100,
+        "wires": [
+            [
+                "4c3d2b4a1993f954",
+                "0aaf2c042071a325",
+                "33e15c449826a53a"
+            ]
+        ]
+    },
+    {
+        "id": "4c3d2b4a1993f954",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "array[0]",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "0aaf2c042071a325",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "00ef1cc687bab2f0",
+        "type": "change",
+        "z": "22af38864955aec9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "marcaAttuale",
+                "pt": "flow",
+                "to": "payload.marca",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 1380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2d5f2ec37db515b5",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "33e15c449826a53a",
+        "type": "change",
+        "z": "22af38864955aec9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.marca",
+                "pt": "msg",
+                "to": "Tesla",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.modello",
+                "pt": "msg",
+                "to": "x",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.targa",
+                "pt": "msg",
+                "to": "010101010",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 1260,
+        "wires": [
+            [
+                "2d5f2ec37db515b5",
+                "00ef1cc687bab2f0"
+            ]
+        ]
+    },
+    {
+        "id": "6f4c29f88a26ae72",
+        "type": "inject",
+        "z": "22af38864955aec9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 1540,
+        "wires": [
+            [
+                "dc85f767fc9cfc22"
+            ]
+        ]
+    },
+    {
+        "id": "dc85f767fc9cfc22",
+        "type": "change",
+        "z": "22af38864955aec9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "marcaAttuale",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 1540,
+        "wires": [
+            [
+                "f5cb684cb3abcc0a"
+            ]
+        ]
+    },
+    {
+        "id": "f5cb684cb3abcc0a",
+        "type": "debug",
+        "z": "22af38864955aec9",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 1540,
+        "wires": []
+    }
+]

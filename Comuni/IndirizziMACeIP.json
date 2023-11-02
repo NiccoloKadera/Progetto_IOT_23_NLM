@@ -1,0 +1,195 @@
+[
+    {
+        "id": "0655d8317706afed",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2885c24949bbe885",
+        "type": "comment",
+        "z": "0655d8317706afed",
+        "name": "Per accendere il ledIndirizzo Mac Raspberry",
+        "info": "Ether\n\neth0: d8:3a:dd:59:40:20\nwlan0: d8:3a:dd:59:40:21",
+        "x": 270,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "297c9ba0a47f826f",
+        "type": "exec",
+        "z": "0655d8317706afed",
+        "command": "ifconfig eth0 | grep ether",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "68ec27c890bb983f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "3f40692475720ccf",
+        "type": "inject",
+        "z": "0655d8317706afed",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "297c9ba0a47f826f",
+                "ddf31b1d3e0e07c6"
+            ]
+        ]
+    },
+    {
+        "id": "e052e5ffd75c7bee",
+        "type": "debug",
+        "z": "0655d8317706afed",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "68ec27c890bb983f",
+        "type": "change",
+        "z": "0655d8317706afed",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substring(payload, 14, 17)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "ObjectID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 200,
+        "wires": [
+            [
+                "e052e5ffd75c7bee"
+            ]
+        ]
+    },
+    {
+        "id": "ddf31b1d3e0e07c6",
+        "type": "exec",
+        "z": "0655d8317706afed",
+        "command": "ifconfig wlan0 | grep inet",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 490,
+        "y": 280,
+        "wires": [
+            [],
+            [
+                "c6e9a2213d4093cc"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "20efe0d48a5f850e",
+        "type": "debug",
+        "z": "0655d8317706afed",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c6e9a2213d4093cc",
+        "type": "change",
+        "z": "0655d8317706afed",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substring(payload, 14, 17)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "IPAddress",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 280,
+        "wires": [
+            [
+                "20efe0d48a5f850e"
+            ]
+        ]
+    }
+]

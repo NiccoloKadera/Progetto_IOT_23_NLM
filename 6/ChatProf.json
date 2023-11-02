@@ -1,0 +1,486 @@
+[
+    {
+        "id": "3a64db0712295c47",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "168f2e98a12091bb",
+        "type": "mqtt in",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "topic": "20231027iot",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 120,
+        "wires": [
+            [
+                "6bb526e5d61eef3f"
+            ]
+        ]
+    },
+    {
+        "id": "204e4c31a8cda60f",
+        "type": "debug",
+        "z": "3a64db0712295c47",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3aac5c37ce1e2b2d",
+        "type": "mqtt out",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "topic": "20231027iot",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 810,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "6bb526e5d61eef3f",
+        "type": "switch",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "property": "payload.receiver",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "mauro",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 120,
+        "wires": [
+            [
+                "204e4c31a8cda60f",
+                "11214ce47720a3f9",
+                "34bfa7016cc7a54e",
+                "20970d25ac2835c0"
+            ]
+        ]
+    },
+    {
+        "id": "3d54c869d7e7e7ef",
+        "type": "ui_form",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "label": "",
+        "group": "48cf1ed78bf84c7d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Receiver",
+                "value": "receiver",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Message",
+                "value": "message",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "receiver": "",
+            "message": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "b8188e7ed2018f78"
+            ]
+        ]
+    },
+    {
+        "id": "bfd4049df6403629",
+        "type": "inject",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"receiver\":\"mauro\",\"message\":\"ciao\"}",
+        "payloadType": "json",
+        "x": 210,
+        "y": 280,
+        "wires": [
+            [
+                "3aac5c37ce1e2b2d"
+            ]
+        ]
+    },
+    {
+        "id": "b8188e7ed2018f78",
+        "type": "change",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "topic",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 400,
+        "wires": [
+            [
+                "3aac5c37ce1e2b2d"
+            ]
+        ]
+    },
+    {
+        "id": "34bfa7016cc7a54e",
+        "type": "ui_text",
+        "z": "3a64db0712295c47",
+        "group": "b65013c1df3102a2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Receiver",
+        "format": "{{msg.payload.receiver}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 600,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "11214ce47720a3f9",
+        "type": "ui_text",
+        "z": "3a64db0712295c47",
+        "group": "b65013c1df3102a2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Message",
+        "format": "{{msg.payload.message}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 600,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ced7634af5866601",
+        "type": "function",
+        "z": "3a64db0712295c47",
+        "name": "function 2",
+        "func": "\nmsg.payload['messages'].push(flow.lastMessageObj)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 880,
+        "wires": [
+            [
+                "ef6dad9c0b29fcb1",
+                "3d1c3ede1ff59307"
+            ]
+        ]
+    },
+    {
+        "id": "bb317cbc621263d9",
+        "type": "debug",
+        "z": "3a64db0712295c47",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1480,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "ea226a263ab2a3fb",
+        "type": "inject",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a9989031cf125a4e",
+        "type": "file in",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "filename": "/home/iot23/Progetto_IOT_23_NLM/4/Request response/memChat.json",
+        "filenameType": "str",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 700,
+        "y": 940,
+        "wires": [
+            [
+                "77b70da37fe115c9"
+            ]
+        ]
+    },
+    {
+        "id": "77b70da37fe115c9",
+        "type": "json",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1150,
+        "y": 960,
+        "wires": [
+            [
+                "bb317cbc621263d9",
+                "ced7634af5866601"
+            ]
+        ]
+    },
+    {
+        "id": "ef6dad9c0b29fcb1",
+        "type": "file",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "filename": "/home/iot23/Progetto_IOT_23_NLM/4/Request response/memChat.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1640,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "599885a00cb45c4b",
+        "type": "change",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lastMessageObj",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 820,
+        "wires": [
+            [
+                "a9989031cf125a4e"
+            ]
+        ]
+    },
+    {
+        "id": "3d1c3ede1ff59307",
+        "type": "function",
+        "z": "3a64db0712295c47",
+        "name": "function 3",
+        "func": "var fullTxt = \"\";\nmsg.payload[\"messages\"].forEach((element) => {\n    fullTxt += \"<br>\" + element + \"<br>\"\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "20970d25ac2835c0",
+        "type": "change",
+        "z": "3a64db0712295c47",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2b9358bdd43541e3",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "48cf1ed78bf84c7d",
+        "type": "ui_group",
+        "name": "Invio",
+        "tab": "51fc2c31b972e9c7",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b65013c1df3102a2",
+        "type": "ui_group",
+        "name": "Ricezione",
+        "tab": "51fc2c31b972e9c7",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "51fc2c31b972e9c7",
+        "type": "ui_tab",
+        "name": "Chat V3",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]

@@ -1,0 +1,345 @@
+[
+    {
+        "id": "c971e19f49c4d6b1",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6dceaa754727b2af",
+        "type": "mqtt in",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "topic": "iot23",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "b03cebcbbdc77f82",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "bb76eb105ee4b1f4",
+                "5c02a3462d044a93",
+                "cda7771249689d44"
+            ]
+        ]
+    },
+    {
+        "id": "0acfdca323ce0de5",
+        "type": "mqtt out",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "topic": "iot23",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b03cebcbbdc77f82",
+        "x": 730,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "bb76eb105ee4b1f4",
+        "type": "debug",
+        "z": "c971e19f49c4d6b1",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "d60eada4cd127a7b",
+        "type": "ui_form",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "label": "Messaggio",
+        "group": "99be966ecae5eea2",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "options": [
+            {
+                "label": "Inserisci Messaggio",
+                "value": "cMessage",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "cMessage": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 150,
+        "y": 700,
+        "wires": [
+            [
+                "4caa0b1e4f8d92de"
+            ]
+        ]
+    },
+    {
+        "id": "fb95f2f5a5ca9040",
+        "type": "ui_text",
+        "z": "c971e19f49c4d6b1",
+        "group": "d387eaccae7e44a3",
+        "order": 0,
+        "width": "6",
+        "height": "22",
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1770,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "4caa0b1e4f8d92de",
+        "type": "change",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.cMessage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 700,
+        "wires": [
+            [
+                "0acfdca323ce0de5"
+            ]
+        ]
+    },
+    {
+        "id": "25309287d9cc9538",
+        "type": "file",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "filename": "/Users/niccolokadera/Library/CloudStorage/OneDrive-UNIVERSITA'CARLOCATTANEO-LIUC/One Drive (Notability e Università)/Università/Anno 3/Progetto e Sviluppo dei Sistemi IoT/4/Request response/memChat.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1270,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5c02a3462d044a93",
+        "type": "file in",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "filename": "/Users/niccolokadera/Library/CloudStorage/OneDrive-UNIVERSITA'CARLOCATTANEO-LIUC/One Drive (Notability e Università)/Università/Anno 3/Progetto e Sviluppo dei Sistemi IoT/4/Request response/memChat.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 870,
+        "y": 520,
+        "wires": [
+            [
+                "fb95f2f5a5ca9040"
+            ]
+        ]
+    },
+    {
+        "id": "cda7771249689d44",
+        "type": "function",
+        "z": "c971e19f49c4d6b1",
+        "name": "function 1",
+        "func": "msg.payload += \"<br>\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 220,
+        "wires": [
+            [
+                "25309287d9cc9538"
+            ]
+        ]
+    },
+    {
+        "id": "e459520ae8b59f85",
+        "type": "file",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "filename": "/Users/niccolokadera/Library/CloudStorage/OneDrive-UNIVERSITA'CARLOCATTANEO-LIUC/One Drive (Notability e Università)/Università/Anno 3/Progetto e Sviluppo dei Sistemi IoT/4/Request response/memChat.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "utf8",
+        "x": 1250,
+        "y": 440,
+        "wires": [
+            [
+                "5c02a3462d044a93"
+            ]
+        ]
+    },
+    {
+        "id": "a0b7fb5f8ad76fcb",
+        "type": "ui_button",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "group": "d387eaccae7e44a3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Clear chat",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "16e7a8a43da6f6aa"
+            ]
+        ]
+    },
+    {
+        "id": "16e7a8a43da6f6aa",
+        "type": "change",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 400,
+        "wires": [
+            [
+                "e459520ae8b59f85"
+            ]
+        ]
+    },
+    {
+        "id": "b03cebcbbdc77f82",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "99be966ecae5eea2",
+        "type": "ui_group",
+        "name": "Input",
+        "tab": "969e747ec9a19615",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d387eaccae7e44a3",
+        "type": "ui_group",
+        "name": "Messages",
+        "tab": "969e747ec9a19615",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "969e747ec9a19615",
+        "type": "ui_tab",
+        "name": "Chat",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]

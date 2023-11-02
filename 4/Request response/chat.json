@@ -1,0 +1,213 @@
+[
+    {
+        "id": "c971e19f49c4d6b1",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6dceaa754727b2af",
+        "type": "mqtt in",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "topic": "iot23",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "b03cebcbbdc77f82",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "bb76eb105ee4b1f4",
+                "fb95f2f5a5ca9040"
+            ]
+        ]
+    },
+    {
+        "id": "0acfdca323ce0de5",
+        "type": "mqtt out",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "topic": "iot23",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b03cebcbbdc77f82",
+        "x": 730,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "bb76eb105ee4b1f4",
+        "type": "debug",
+        "z": "c971e19f49c4d6b1",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "d60eada4cd127a7b",
+        "type": "ui_form",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "label": "Messaggio",
+        "group": "99be966ecae5eea2",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "options": [
+            {
+                "label": "Inserisci Messaggio",
+                "value": "cMessage",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "cMessage": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 170,
+        "y": 560,
+        "wires": [
+            [
+                "4caa0b1e4f8d92de"
+            ]
+        ]
+    },
+    {
+        "id": "fb95f2f5a5ca9040",
+        "type": "ui_text",
+        "z": "c971e19f49c4d6b1",
+        "group": "d387eaccae7e44a3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 630,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "4caa0b1e4f8d92de",
+        "type": "change",
+        "z": "c971e19f49c4d6b1",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.cMessage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 580,
+        "wires": [
+            [
+                "0acfdca323ce0de5"
+            ]
+        ]
+    },
+    {
+        "id": "b03cebcbbdc77f82",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "99be966ecae5eea2",
+        "type": "ui_group",
+        "name": "Input",
+        "tab": "969e747ec9a19615",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d387eaccae7e44a3",
+        "type": "ui_group",
+        "name": "Messages",
+        "tab": "969e747ec9a19615",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "969e747ec9a19615",
+        "type": "ui_tab",
+        "name": "Chat",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]

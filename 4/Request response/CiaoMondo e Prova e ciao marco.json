@@ -1,0 +1,175 @@
+[
+    {
+        "id": "c03409c8e1474917",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "37fcecf63d4260a0",
+        "type": "http in",
+        "z": "c03409c8e1474917",
+        "name": "ciaomondo",
+        "url": "/ciaomondo",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "216c7b5f4f3f5c14"
+            ]
+        ]
+    },
+    {
+        "id": "520adee95e7e51ca",
+        "type": "http response",
+        "z": "c03409c8e1474917",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "216c7b5f4f3f5c14",
+        "type": "change",
+        "z": "c03409c8e1474917",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "<div style=\"text-align:center; font-size:2em; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%);\">CiaoMondo<div>",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "520adee95e7e51ca"
+            ]
+        ]
+    },
+    {
+        "id": "303fce9996d57425",
+        "type": "http in",
+        "z": "c03409c8e1474917",
+        "name": "prova",
+        "url": "/prova",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 320,
+        "wires": [
+            [
+                "bda97d570605cc15"
+            ]
+        ]
+    },
+    {
+        "id": "3c8562ad0678cdc5",
+        "type": "http response",
+        "z": "c03409c8e1474917",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bda97d570605cc15",
+        "type": "change",
+        "z": "c03409c8e1474917",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "prova",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "3c8562ad0678cdc5"
+            ]
+        ]
+    },
+    {
+        "id": "d9cb733f09358acf",
+        "type": "http in",
+        "z": "c03409c8e1474917",
+        "name": "ciaomondo",
+        "url": "/ciaomarco",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 560,
+        "wires": [
+            [
+                "b34e3bc8ff02fffb"
+            ]
+        ]
+    },
+    {
+        "id": "0a86c7ae08031c66",
+        "type": "http response",
+        "z": "c03409c8e1474917",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b34e3bc8ff02fffb",
+        "type": "change",
+        "z": "c03409c8e1474917",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "<div id=\"txtContent\" style=\"text-align:center; font-size:2em; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%);\"><div><script>const txtEl = document.getElementById('txtContent'); setInterval(function () {txtEl.innerHTML += \"Ciao marco<br>\"}, 1000);</script>",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 640,
+        "wires": [
+            [
+                "0a86c7ae08031c66"
+            ]
+        ]
+    }
+]
