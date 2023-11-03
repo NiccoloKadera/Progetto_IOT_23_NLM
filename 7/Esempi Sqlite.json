@@ -1,0 +1,741 @@
+[
+    {
+        "id": "1732112be3c5d4d1",
+        "type": "tab",
+        "label": "Esempi sqlite",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4777650ec4973c36",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "msg.topic",
+        "sql": "CREATE TABLE Persons (\n    PersonID int,\n    LastName varchar(255),\n    FirstName varchar(255),\n    Address varchar(255),\n    City varchar(255)\n);",
+        "name": "database1",
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "4fdff00fbd70ccda"
+            ]
+        ]
+    },
+    {
+        "id": "4fdff00fbd70ccda",
+        "type": "debug",
+        "z": "1732112be3c5d4d1",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "52325506b1e09c8c",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "CREATE PERSON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE Persons (     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255) );",
+        "payload": "",
+        "payloadType": "date",
+        "x": 330,
+        "y": 220,
+        "wires": [
+            [
+                "4777650ec4973c36"
+            ]
+        ]
+    },
+    {
+        "id": "f4528933a5c2ca26",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "SELECT PERSON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM Persons",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "4777650ec4973c36"
+            ]
+        ]
+    },
+    {
+        "id": "eed4e191a7404b1d",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "DROP PERSON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DROP TABLE Persons",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "4777650ec4973c36"
+            ]
+        ]
+    },
+    {
+        "id": "667edb0e8c55162d",
+        "type": "comment",
+        "z": "1732112be3c5d4d1",
+        "name": "Esempio database slqlite",
+        "info": "Principali comandi di create, drop e select.",
+        "x": 230,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1afaa3cc611f8d67",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "INSERT IN PERSON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "INSERT INTO Persons VALUES (1, \"Mario\", \"Rossi\",  \"Via\", \"Castellanza\")",
+        "payload": "",
+        "payloadType": "date",
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "4777650ec4973c36"
+            ]
+        ]
+    },
+    {
+        "id": "500550a2f3bede0a",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "CREATE TABLE Persons (\n    PersonID int,\n    LastName varchar(255),\n    FirstName varchar(255),\n    Address varchar(255),\n    City varchar(255)\n);",
+        "name": "CREATE PERSON",
+        "x": 590,
+        "y": 660,
+        "wires": [
+            [
+                "48c5b16561276b02"
+            ]
+        ]
+    },
+    {
+        "id": "2be75aabf9d09e3a",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 660,
+        "wires": [
+            [
+                "500550a2f3bede0a"
+            ]
+        ]
+    },
+    {
+        "id": "48c5b16561276b02",
+        "type": "debug",
+        "z": "1732112be3c5d4d1",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c8e40b3d38a363ec",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "SELECT * FROM Persons",
+        "name": "SELECT PERSON",
+        "x": 590,
+        "y": 740,
+        "wires": [
+            [
+                "acd3e79c64170b56"
+            ]
+        ]
+    },
+    {
+        "id": "de061887d0077cdc",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 740,
+        "wires": [
+            [
+                "c8e40b3d38a363ec"
+            ]
+        ]
+    },
+    {
+        "id": "acd3e79c64170b56",
+        "type": "debug",
+        "z": "1732112be3c5d4d1",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "1761a09c8410cc55",
+        "type": "comment",
+        "z": "1732112be3c5d4d1",
+        "name": "Con inject",
+        "info": "",
+        "x": 240,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "03ed79432e3e9001",
+        "type": "comment",
+        "z": "1732112be3c5d4d1",
+        "name": "Con fixed statement",
+        "info": "",
+        "x": 270,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "3bd42349629e175e",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "DROP TABLE Persons",
+        "name": "DROP PERSON",
+        "x": 580,
+        "y": 820,
+        "wires": [
+            [
+                "05c55b257c429d1f"
+            ]
+        ]
+    },
+    {
+        "id": "767e843abcb48df3",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 820,
+        "wires": [
+            [
+                "3bd42349629e175e"
+            ]
+        ]
+    },
+    {
+        "id": "05c55b257c429d1f",
+        "type": "debug",
+        "z": "1732112be3c5d4d1",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "dcd59b65c779c251",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "INSERT INTO Persons VALUES (1, \"Mario\", \"Rossi\",  \"Via\", \"Castellanza\")",
+        "name": "INSERT IN PERSON",
+        "x": 600,
+        "y": 900,
+        "wires": [
+            [
+                "8383741830d0e4d4"
+            ]
+        ]
+    },
+    {
+        "id": "168d85d55cd1a120",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 900,
+        "wires": [
+            [
+                "dcd59b65c779c251"
+            ]
+        ]
+    },
+    {
+        "id": "8383741830d0e4d4",
+        "type": "debug",
+        "z": "1732112be3c5d4d1",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "aeeb03357f5cfc39",
+        "type": "comment",
+        "z": "1732112be3c5d4d1",
+        "name": "Con prepare statement",
+        "info": "Documentazione: https://flows.nodered.org/node/node-red-node-sqlite",
+        "x": 280,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "0780a53d1b05383c",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "prepared",
+        "sql": "INSERT INTO Persons VALUES (?, ?, ?,  ?, ?);",
+        "name": "INSERT IN PERSON",
+        "x": 600,
+        "y": 1100,
+        "wires": [
+            [
+                "bdfb07ab1aaef546"
+            ]
+        ]
+    },
+    {
+        "id": "1cf55e8350f531c9",
+        "type": "inject",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "props": [
+            {
+                "p": "params",
+                "v": "[1, \"Franco\", \"Rossi\", \"Via\", \"Castellanza\"]",
+                "vt": "jsonata"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 330,
+        "y": 1100,
+        "wires": [
+            [
+                "0780a53d1b05383c"
+            ]
+        ]
+    },
+    {
+        "id": "bdfb07ab1aaef546",
+        "type": "debug",
+        "z": "1732112be3c5d4d1",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "094ddf9b4d85d443",
+        "type": "comment",
+        "z": "1732112be3c5d4d1",
+        "name": "Implementazione con Dashboard",
+        "info": "Documentazione: https://flows.nodered.org/node/node-red-node-sqlite",
+        "x": 310,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "de9116be77aa1f8a",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "prepared",
+        "sql": "INSERT INTO Persons VALUES (?, ?, ?,  ?, ?);",
+        "name": "INSERT IN PERSON",
+        "x": 860,
+        "y": 1300,
+        "wires": [
+            [
+                "04f82a9731cb4bd4",
+                "09cb72d197089979"
+            ]
+        ]
+    },
+    {
+        "id": "04f82a9731cb4bd4",
+        "type": "debug",
+        "z": "1732112be3c5d4d1",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "bf2324a04bc67ec4",
+        "type": "ui_form",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "label": "",
+        "group": "5152aa1a69abfcef",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "ID",
+                "value": "PersonID",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Nome",
+                "value": "LastName",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Cognome",
+                "value": "FirstName",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Indirizzo",
+                "value": "Address",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Città",
+                "value": "City",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "PersonID": "",
+            "LastName": "",
+            "FirstName": "",
+            "Address": "",
+            "City": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 330,
+        "y": 1300,
+        "wires": [
+            [
+                "390f08d443d4eb0b"
+            ]
+        ]
+    },
+    {
+        "id": "390f08d443d4eb0b",
+        "type": "change",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "params",
+                "pt": "msg",
+                "to": "[\t    payload.PersonID,\t    payload.LastName,\t    payload.FirstName,\t    payload.Address,\t    payload.City\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 1300,
+        "wires": [
+            [
+                "de9116be77aa1f8a"
+            ]
+        ]
+    },
+    {
+        "id": "dcae309580a832c4",
+        "type": "ui_button",
+        "z": "1732112be3c5d4d1",
+        "name": "",
+        "group": "02874ae222e94028",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Select",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 330,
+        "y": 1420,
+        "wires": [
+            [
+                "09cb72d197089979"
+            ]
+        ]
+    },
+    {
+        "id": "09cb72d197089979",
+        "type": "sqlite",
+        "z": "1732112be3c5d4d1",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "SELECT * FROM Persons",
+        "name": "SELECT PERSON",
+        "x": 590,
+        "y": 1420,
+        "wires": [
+            [
+                "085b762150205f5a"
+            ]
+        ]
+    },
+    {
+        "id": "085b762150205f5a",
+        "type": "ui_table",
+        "z": "1732112be3c5d4d1",
+        "group": "02874ae222e94028",
+        "name": "",
+        "order": 1,
+        "width": "6",
+        "height": "5",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 830,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "6f9889f2e722a38b",
+        "type": "sqlitedb",
+        "db": "database1",
+        "mode": "RWC"
+    },
+    {
+        "id": "5152aa1a69abfcef",
+        "type": "ui_group",
+        "name": "Insert",
+        "tab": "f3fcb14305887663",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "02874ae222e94028",
+        "type": "ui_group",
+        "name": "Select",
+        "tab": "f3fcb14305887663",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f3fcb14305887663",
+        "type": "ui_tab",
+        "name": "Sqllite Esempio",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]
