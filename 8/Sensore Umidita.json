@@ -1,0 +1,221 @@
+[
+    {
+        "id": "7f32e7209b0fdfce",
+        "type": "tab",
+        "label": "Umidità",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3783a7c35b683498",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "b1590c3a9539ed94"
+            ]
+        ]
+    },
+    {
+        "id": "47985788543a8db8",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b1590c3a9539ed94",
+        "type": "rpi-dht22",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "topic": "rpi-dht22",
+        "dht": "11",
+        "pintype": "0",
+        "pin": "17",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "f22e93c145bead38"
+            ]
+        ]
+    },
+    {
+        "id": "904ade7ac3691f69",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "dht11",
+        "info": "",
+        "x": 150,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "257d3a588fde8c08",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "Mac Raspberry",
+        "info": "Ether\n\neth0: d8:3a:dd:59:40:20\nwlan0: d8:3a:dd:59:40:21",
+        "x": 160,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "63a9d669204e0923",
+        "type": "exec",
+        "z": "7f32e7209b0fdfce",
+        "command": "ifconfig eth0 | grep ether",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "8ebd1d4b43111b19"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "dd2464af6e89eaa9",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "63a9d669204e0923"
+            ]
+        ]
+    },
+    {
+        "id": "f818851cf6c32709",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "8ebd1d4b43111b19",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substring(payload, 14, 17)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "ObjectID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 340,
+        "wires": [
+            [
+                "f818851cf6c32709"
+            ]
+        ]
+    },
+    {
+        "id": "f22e93c145bead38",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"ObjectID\": $globalContext(\"ObjectID\"),\t    \"Temperature\": msg.payload,\t    \"Humidity\": msg.humidity,\t    \"Timestamp\": $now()\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 160,
+        "wires": [
+            [
+                "47985788543a8db8"
+            ]
+        ]
+    }
+]
