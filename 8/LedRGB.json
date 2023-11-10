@@ -1,0 +1,263 @@
+[
+    {
+        "id": "a44aaec10c7c564d",
+        "type": "tab",
+        "label": "Led RGB",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "72e0e5ec92134756",
+        "type": "rpi-gpio out",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "pin": "16",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 720,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "fd1377b1338539bf",
+        "type": "rpi-gpio out",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "pin": "20",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 720,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1205f9e3468f8775",
+        "type": "rpi-gpio out",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "pin": "21",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 720,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "547c2f1f72779880",
+        "type": "inject",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "90",
+        "payloadType": "num",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "72e0e5ec92134756"
+            ]
+        ]
+    },
+    {
+        "id": "7ff0f2b575d070e8",
+        "type": "inject",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "34",
+        "payloadType": "num",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "fd1377b1338539bf"
+            ]
+        ]
+    },
+    {
+        "id": "f8910256dd64fa95",
+        "type": "inject",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 170,
+        "y": 340,
+        "wires": [
+            [
+                "1205f9e3468f8775"
+            ]
+        ]
+    },
+    {
+        "id": "a531440cc463b348",
+        "type": "ui_slider",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "label": "Red",
+        "tooltip": "",
+        "group": "b65013c1df3102a2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 450,
+        "y": 140,
+        "wires": [
+            [
+                "fd1377b1338539bf"
+            ]
+        ]
+    },
+    {
+        "id": "1096a8a193fe4d08",
+        "type": "ui_slider",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "label": "Green",
+        "tooltip": "",
+        "group": "b65013c1df3102a2",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "1205f9e3468f8775"
+            ]
+        ]
+    },
+    {
+        "id": "0be6976c560ea408",
+        "type": "ui_slider",
+        "z": "a44aaec10c7c564d",
+        "name": "",
+        "label": "Blu",
+        "tooltip": "",
+        "group": "b65013c1df3102a2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 450,
+        "y": 80,
+        "wires": [
+            [
+                "72e0e5ec92134756"
+            ]
+        ]
+    },
+    {
+        "id": "40e1fbf952bb1d66",
+        "type": "comment",
+        "z": "a44aaec10c7c564d",
+        "name": "Led RGB",
+        "info": "",
+        "x": 120,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2a092f9c1d14a4cf",
+        "type": "comment",
+        "z": "a44aaec10c7c564d",
+        "name": "#19a8e6",
+        "info": "",
+        "x": 160,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b65013c1df3102a2",
+        "type": "ui_group",
+        "name": "Ricezione",
+        "tab": "c9d8efa76f85e32c",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c9d8efa76f85e32c",
+        "type": "ui_tab",
+        "name": "Slider RGB",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]

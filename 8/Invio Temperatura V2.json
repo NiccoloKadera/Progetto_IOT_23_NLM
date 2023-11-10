@@ -1,0 +1,1216 @@
+[
+    {
+        "id": "9189f92873ce7ae8",
+        "type": "tab",
+        "label": "Invio Temperatura",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "99750320ee4d29d5",
+        "type": "comment",
+        "z": "9189f92873ce7ae8",
+        "name": "Passare temperatura tramite mqtt out",
+        "info": "\nCaricare la temperatura di un sensore su un db\n\nSensore: DS18B20\n\nSensore temperatura GPIO:\n - GND -> GND in alto a sinistra\n - SIG -> GPIO4\n - VCC -> 3v3\n\nLED GPIO:\n - GND -> GND\n - R -> GPIO26\n\nLED RGB GPIO:\n - GND -> GND\n\nNodi:\n - node-red-contrib-sensor-ds18b20\n - node-red-contrib-ds18b20-sensor\n",
+        "x": 210,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4cd538c0e54d928a",
+        "type": "sensor-ds18b20",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "",
+        "sensorid": "28-06201568d8b1",
+        "timer": "60",
+        "repeat": false,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "1595118fa2ba8659",
+                "a7fb7c4b9c207944",
+                "b8ec50ab0d9229a7"
+            ]
+        ]
+    },
+    {
+        "id": "869c9540cd7f8ebf",
+        "type": "mqtt out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "MarcoSpaccatutto",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 490,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "1595118fa2ba8659",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"ObjectID\": $globalContext(\"ObjectID\"),\t    \"Temperature\": payload,\t    \"Timestamp\": $now()\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "869c9540cd7f8ebf",
+                "b6b1350381552f42"
+            ]
+        ]
+    },
+    {
+        "id": "b6b1350381552f42",
+        "type": "debug",
+        "z": "9189f92873ce7ae8",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e41033b0f8b021da",
+        "type": "comment",
+        "z": "9189f92873ce7ae8",
+        "name": "Indirizzo Mac Raspberry",
+        "info": "Ether\n\neth0: d8:3a:dd:59:40:20\nwlan0: d8:3a:dd:59:40:21",
+        "x": 170,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "6c8c7dfdc0369a59",
+        "type": "exec",
+        "z": "9189f92873ce7ae8",
+        "command": "ifconfig eth0 | grep ether",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 560,
+        "wires": [
+            [],
+            [
+                "7858e2562c7e8a70"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "79f280cfc9bdb2a0",
+        "type": "inject",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 560,
+        "wires": [
+            [
+                "6c8c7dfdc0369a59"
+            ]
+        ]
+    },
+    {
+        "id": "b8f22f3563851806",
+        "type": "debug",
+        "z": "9189f92873ce7ae8",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "7858e2562c7e8a70",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substring(payload, 14, 17)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "ObjectID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 560,
+        "wires": [
+            [
+                "b8f22f3563851806"
+            ]
+        ]
+    },
+    {
+        "id": "34e7b2fb4c23298e",
+        "type": "mqtt in",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "MarcoConquistatoreDiMondi",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "9f6d8bc3181aceae"
+            ]
+        ]
+    },
+    {
+        "id": "03180318c16e3ff5",
+        "type": "mqtt in",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "MarcoPazzoSgravato",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 840,
+        "y": 160,
+        "wires": [
+            [
+                "34b335d1767177f5"
+            ]
+        ]
+    },
+    {
+        "id": "34b335d1767177f5",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "Max Temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "maxTemp",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1050,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "22386db8830af130",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "maxTemp",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "payload",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1390,
+        "y": 180,
+        "wires": [
+            [
+                "62849310e6382e15"
+            ]
+        ]
+    },
+    {
+        "id": "ec4209e470b008e0",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "26",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1840,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "62849310e6382e15",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1620,
+        "y": 180,
+        "wires": [
+            [
+                "ec4209e470b008e0",
+                "b68bd8151bb3868b"
+            ]
+        ]
+    },
+    {
+        "id": "33e7c23b069ce66e",
+        "type": "comment",
+        "z": "9189f92873ce7ae8",
+        "name": "Led",
+        "info": "\n",
+        "x": 1390,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b68bd8151bb3868b",
+        "type": "mqtt out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "MarcoControllore",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 1930,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "5dca78328e539bf9",
+        "type": "mqtt in",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "MarcoPulotto",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1410,
+        "y": 380,
+        "wires": [
+            [
+                "420bd5cf766fcbbc"
+            ]
+        ]
+    },
+    {
+        "id": "c16fc79dcc44731c",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "26",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 2080,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ac695ecb9a9d5c01",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Comando",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1900,
+        "y": 380,
+        "wires": [
+            [
+                "c16fc79dcc44731c"
+            ]
+        ]
+    },
+    {
+        "id": "649cf8f36f14aa9e",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1620,
+        "y": 240,
+        "wires": [
+            [
+                "b68bd8151bb3868b"
+            ]
+        ]
+    },
+    {
+        "id": "3b80a0703163d9e9",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "maxTemp",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "payload",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1390,
+        "y": 240,
+        "wires": [
+            [
+                "649cf8f36f14aa9e"
+            ]
+        ]
+    },
+    {
+        "id": "420bd5cf766fcbbc",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "payload.ObjectID",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ObjectID",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1590,
+        "y": 380,
+        "wires": [
+            [
+                "555d3ace669eac85"
+            ]
+        ]
+    },
+    {
+        "id": "9f6d8bc3181aceae",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "payload.ObjectID",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ObjectID",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "4cd538c0e54d928a"
+            ]
+        ]
+    },
+    {
+        "id": "a7fb7c4b9c207944",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "LEDtype",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Standard",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1030,
+        "y": 300,
+        "wires": [
+            [
+                "22386db8830af130",
+                "3b80a0703163d9e9"
+            ]
+        ]
+    },
+    {
+        "id": "f006d90037e053b2",
+        "type": "inject",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 620,
+        "wires": [
+            [
+                "e4b3e36f4b357d1e"
+            ]
+        ]
+    },
+    {
+        "id": "e4b3e36f4b357d1e",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LEDtype",
+                "pt": "global",
+                "to": "Standard",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c106d3912cfebbdc",
+        "type": "inject",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 680,
+        "wires": [
+            [
+                "b06bdc35a5ae758f"
+            ]
+        ]
+    },
+    {
+        "id": "b06bdc35a5ae758f",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LEDtype",
+                "pt": "global",
+                "to": "RGB",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b8ec50ab0d9229a7",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "LEDtype",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "RGB",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1230,
+        "y": 640,
+        "wires": [
+            [
+                "bf99b98eeea4e06c",
+                "7330d136d448e267"
+            ]
+        ]
+    },
+    {
+        "id": "f884bd9c20f4630c",
+        "type": "comment",
+        "z": "9189f92873ce7ae8",
+        "name": "Per accendere led RGB",
+        "info": "\n",
+        "x": 1440,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "bf99b98eeea4e06c",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "maxTemp",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "payload",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1430,
+        "y": 640,
+        "wires": [
+            [
+                "7d39124f0643fbe8",
+                "a4683503d02f323b",
+                "013411848edb65b5"
+            ]
+        ]
+    },
+    {
+        "id": "0b794e71856e6d5f",
+        "type": "mqtt out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "MarcoControllore",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 1950,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "9024b1441eb4caed",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1660,
+        "y": 700,
+        "wires": [
+            [
+                "0b794e71856e6d5f"
+            ]
+        ]
+    },
+    {
+        "id": "7330d136d448e267",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "maxTemp",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "payload",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1430,
+        "y": 700,
+        "wires": [
+            [
+                "9024b1441eb4caed"
+            ]
+        ]
+    },
+    {
+        "id": "44921da2a97c387b",
+        "type": "comment",
+        "z": "9189f92873ce7ae8",
+        "name": "Ricevimento T_max",
+        "info": "\n",
+        "x": 830,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "555d3ace669eac85",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "LEDtype",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Standard",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1730,
+        "y": 380,
+        "wires": [
+            [
+                "ac695ecb9a9d5c01"
+            ]
+        ]
+    },
+    {
+        "id": "267132d4b4ece9e9",
+        "type": "mqtt in",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "topic": "MarcoPulotto",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1410,
+        "y": 960,
+        "wires": [
+            [
+                "5c0ee376f4e35489"
+            ]
+        ]
+    },
+    {
+        "id": "40e3ae95ec04fd99",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Comando2[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1940,
+        "y": 920,
+        "wires": [
+            [
+                "badf4f62f55a726e"
+            ]
+        ]
+    },
+    {
+        "id": "5c0ee376f4e35489",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "payload.ObjectID",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ObjectID",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1590,
+        "y": 960,
+        "wires": [
+            [
+                "1bf6c571a9f0d26b"
+            ]
+        ]
+    },
+    {
+        "id": "1bf6c571a9f0d26b",
+        "type": "switch",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "property": "LEDtype",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "RGB",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1730,
+        "y": 960,
+        "wires": [
+            [
+                "40e3ae95ec04fd99",
+                "5380389c9f92bf8f",
+                "0172fe2e1430639f"
+            ]
+        ]
+    },
+    {
+        "id": "577b21a70371f56d",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "26",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 2020,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "663d43dc5de575c2",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "20",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 2020,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "32c2125c5f426869",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "21",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 2020,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "badf4f62f55a726e",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "16",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 2120,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "a599c7ae873ae374",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "20",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 2120,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "4061cf13e79be6a2",
+        "type": "rpi-gpio out",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "pin": "21",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 2120,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "5380389c9f92bf8f",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Comando2[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1940,
+        "y": 980,
+        "wires": [
+            [
+                "a599c7ae873ae374"
+            ]
+        ]
+    },
+    {
+        "id": "0172fe2e1430639f",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Comando2[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1940,
+        "y": 1040,
+        "wires": [
+            [
+                "4061cf13e79be6a2"
+            ]
+        ]
+    },
+    {
+        "id": "7d39124f0643fbe8",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "60",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1800,
+        "y": 580,
+        "wires": [
+            [
+                "577b21a70371f56d",
+                "a8fce6d47cebc121"
+            ]
+        ]
+    },
+    {
+        "id": "a4683503d02f323b",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "100",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1820,
+        "y": 620,
+        "wires": [
+            [
+                "663d43dc5de575c2"
+            ]
+        ]
+    },
+    {
+        "id": "013411848edb65b5",
+        "type": "change",
+        "z": "9189f92873ce7ae8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "60",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1800,
+        "y": 660,
+        "wires": [
+            [
+                "32c2125c5f426869"
+            ]
+        ]
+    },
+    {
+        "id": "a8fce6d47cebc121",
+        "type": "debug",
+        "z": "9189f92873ce7ae8",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1960,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2b9358bdd43541e3",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

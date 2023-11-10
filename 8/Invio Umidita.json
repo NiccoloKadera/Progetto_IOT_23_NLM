@@ -1,0 +1,262 @@
+[
+    {
+        "id": "7f32e7209b0fdfce",
+        "type": "tab",
+        "label": "Umidità",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3783a7c35b683498",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "b1590c3a9539ed94"
+            ]
+        ]
+    },
+    {
+        "id": "47985788543a8db8",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b1590c3a9539ed94",
+        "type": "rpi-dht22",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "topic": "rpi-dht22",
+        "dht": "11",
+        "pintype": "0",
+        "pin": "17",
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "f22e93c145bead38"
+            ]
+        ]
+    },
+    {
+        "id": "904ade7ac3691f69",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "dht11",
+        "info": "",
+        "x": 110,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "257d3a588fde8c08",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "Mac Raspberry",
+        "info": "Ether\n\neth0: d8:3a:dd:59:40:20\nwlan0: d8:3a:dd:59:40:21",
+        "x": 140,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "63a9d669204e0923",
+        "type": "exec",
+        "z": "7f32e7209b0fdfce",
+        "command": "ifconfig eth0 | grep ether",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 460,
+        "wires": [
+            [
+                "8ebd1d4b43111b19"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "dd2464af6e89eaa9",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "63a9d669204e0923"
+            ]
+        ]
+    },
+    {
+        "id": "f818851cf6c32709",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "8ebd1d4b43111b19",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substring(payload, 14, 17)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "ObjectID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 460,
+        "wires": [
+            [
+                "f818851cf6c32709"
+            ]
+        ]
+    },
+    {
+        "id": "f22e93c145bead38",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"ObjectID\": $globalContext(\"ObjectID\"),\t    \"Temperature\": payload,\t    \"Humidity\": humidity,\t    \"Timestamp\": $now()\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 120,
+        "wires": [
+            [
+                "47985788543a8db8",
+                "02ee24dc6dfc281d"
+            ]
+        ]
+    },
+    {
+        "id": "02ee24dc6dfc281d",
+        "type": "http request",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 180,
+        "wires": [
+            [
+                "6ebca8e996377674"
+            ]
+        ]
+    },
+    {
+        "id": "6ebca8e996377674",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 180,
+        "wires": []
+    }
+]
