@@ -1,0 +1,1005 @@
+[
+    {
+        "id": "7f32e7209b0fdfce",
+        "type": "tab",
+        "label": "Umidità",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3783a7c35b683498",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "06f9650f256e1aa1"
+            ]
+        ]
+    },
+    {
+        "id": "47985788543a8db8",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b1590c3a9539ed94",
+        "type": "rpi-dht22",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "topic": "rpi-dht22",
+        "dht": "11",
+        "pintype": "0",
+        "pin": "17",
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "f22e93c145bead38"
+            ]
+        ]
+    },
+    {
+        "id": "904ade7ac3691f69",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "dht11",
+        "info": "VCC - 3v3\nGND - GND (primo in alto)\nSIG - GPIO17",
+        "x": 110,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "257d3a588fde8c08",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "Mac Raspberry",
+        "info": "Ether\n\neth0: d8:3a:dd:59:40:20\nwlan0: d8:3a:dd:59:40:21",
+        "x": 140,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "63a9d669204e0923",
+        "type": "exec",
+        "z": "7f32e7209b0fdfce",
+        "command": "ifconfig eth0 | grep ether",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 860,
+        "wires": [
+            [
+                "8ebd1d4b43111b19"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "dd2464af6e89eaa9",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 860,
+        "wires": [
+            [
+                "63a9d669204e0923"
+            ]
+        ]
+    },
+    {
+        "id": "f818851cf6c32709",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "8ebd1d4b43111b19",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substring(payload, 14, 17)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "ObjectID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 860,
+        "wires": [
+            [
+                "f818851cf6c32709"
+            ]
+        ]
+    },
+    {
+        "id": "f22e93c145bead38",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"ObjectID\": $globalContext(\"ObjectID\"),\t    \"Temperature\": payload,\t    \"Humidity\": humidity,\t    \"Timestamp\": $now()\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 120,
+        "wires": [
+            [
+                "47985788543a8db8",
+                "02ee24dc6dfc281d",
+                "ff57ccfb59b54f2e",
+                "a24f28b360230d28"
+            ]
+        ]
+    },
+    {
+        "id": "02ee24dc6dfc281d",
+        "type": "http request",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1010,
+        "y": 180,
+        "wires": [
+            [
+                "6f223294266271a3"
+            ]
+        ]
+    },
+    {
+        "id": "6ebca8e996377674",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6f223294266271a3",
+        "type": "json",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1170,
+        "y": 180,
+        "wires": [
+            [
+                "6ebca8e996377674"
+            ]
+        ]
+    },
+    {
+        "id": "f88e5be3e220f6df",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 560,
+        "wires": [
+            [
+                "be4567edba90bd92"
+            ]
+        ]
+    },
+    {
+        "id": "d87a8a7dc77485fa",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "7958b913ac181fdc",
+        "type": "json",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 470,
+        "y": 560,
+        "wires": [
+            [
+                "00cc35c9c4937cfe"
+            ]
+        ]
+    },
+    {
+        "id": "00cc35c9c4937cfe",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 560,
+        "wires": [
+            [
+                "d87a8a7dc77485fa"
+            ]
+        ]
+    },
+    {
+        "id": "be4567edba90bd92",
+        "type": "http request",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 560,
+        "wires": [
+            [
+                "7958b913ac181fdc"
+            ]
+        ]
+    },
+    {
+        "id": "50b0675b67a2365b",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Temperature\":37,\"ID\":2}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 640,
+        "wires": [
+            [
+                "0e8e4e63249f0dee"
+            ]
+        ]
+    },
+    {
+        "id": "2cfb8c9cf9346457",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "7d56b2ce1e70c8b0",
+        "type": "json",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 470,
+        "y": 640,
+        "wires": [
+            [
+                "f4ae8b2b40ef1b2c"
+            ]
+        ]
+    },
+    {
+        "id": "0e8e4e63249f0dee",
+        "type": "http request",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 640,
+        "wires": [
+            [
+                "7d56b2ce1e70c8b0"
+            ]
+        ]
+    },
+    {
+        "id": "f4ae8b2b40ef1b2c",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.status",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 640,
+        "wires": [
+            [
+                "2cfb8c9cf9346457"
+            ]
+        ]
+    },
+    {
+        "id": "10ed08b3a7f0b744",
+        "type": "inject",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"rowid\":1}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 720,
+        "wires": [
+            [
+                "0acfe58f3bc4c46a"
+            ]
+        ]
+    },
+    {
+        "id": "1f110daaecd3f689",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "2c1f3066f66e4e35",
+        "type": "json",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 470,
+        "y": 720,
+        "wires": [
+            [
+                "8ac0102935471538"
+            ]
+        ]
+    },
+    {
+        "id": "0acfe58f3bc4c46a",
+        "type": "http request",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "method": "DELETE",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 720,
+        "wires": [
+            [
+                "2c1f3066f66e4e35"
+            ]
+        ]
+    },
+    {
+        "id": "8ac0102935471538",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.status",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 720,
+        "wires": [
+            [
+                "1f110daaecd3f689"
+            ]
+        ]
+    },
+    {
+        "id": "ca0f769b7f0488d7",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "Touch Swich",
+        "info": "VCC - 3v3\nGND - GND (primo in alto)\nSIG - GPIO23",
+        "x": 130,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c19f3c673e66eba8",
+        "type": "rpi-gpio in",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "pin": "23",
+        "intype": "tri",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "896db2f18b568621"
+            ]
+        ]
+    },
+    {
+        "id": "d46b9d97890f1dfa",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "68865f17107fc33b",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "HTTP",
+        "info": "",
+        "x": 110,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "cea6b8be0c04b593",
+        "type": "comment",
+        "z": "7f32e7209b0fdfce",
+        "name": "LED",
+        "info": "R - GPIO 20\nGND - GND (Ultimo in basso)\ng - gpio 21",
+        "x": 890,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "deb22e71b236af44",
+        "type": "rpi-gpio out",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "pin": "20",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1460,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4de914f1d9287b57",
+        "type": "rpi-gpio out",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "pin": "21",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1460,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ff57ccfb59b54f2e",
+        "type": "switch",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "property": "payload.Humidity",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "LastHum",
+                "vt": "global"
+            },
+            {
+                "t": "eq",
+                "v": "LastHum",
+                "vt": "global"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 930,
+        "y": 300,
+        "wires": [
+            [
+                "87bfb62025492f67",
+                "e9fd6abbb12c37a2",
+                "b06ae6eebd0888ee"
+            ],
+            [
+                "e8c3020889c8c287"
+            ],
+            [
+                "05c9efee47b8a526",
+                "4f4caca03a22ee55",
+                "b06ae6eebd0888ee"
+            ]
+        ]
+    },
+    {
+        "id": "87bfb62025492f67",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 280,
+        "wires": [
+            [
+                "deb22e71b236af44"
+            ]
+        ]
+    },
+    {
+        "id": "e9fd6abbb12c37a2",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 320,
+        "wires": [
+            [
+                "4de914f1d9287b57"
+            ]
+        ]
+    },
+    {
+        "id": "05c9efee47b8a526",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 440,
+        "wires": [
+            [
+                "deb22e71b236af44"
+            ]
+        ]
+    },
+    {
+        "id": "4f4caca03a22ee55",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 480,
+        "wires": [
+            [
+                "4de914f1d9287b57"
+            ]
+        ]
+    },
+    {
+        "id": "b06ae6eebd0888ee",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LastHum",
+                "pt": "global",
+                "to": "payload.Humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 970,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0b62c8603228863",
+        "type": "debug",
+        "z": "7f32e7209b0fdfce",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "a24f28b360230d28",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "LastHum",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 60,
+        "wires": [
+            [
+                "b0b62c8603228863"
+            ]
+        ]
+    },
+    {
+        "id": "e8c3020889c8c287",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 380,
+        "wires": [
+            [
+                "deb22e71b236af44",
+                "4de914f1d9287b57"
+            ]
+        ]
+    },
+    {
+        "id": "06f9650f256e1aa1",
+        "type": "switch",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "property": "autoCheck",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "b1590c3a9539ed94"
+            ]
+        ]
+    },
+    {
+        "id": "896db2f18b568621",
+        "type": "change",
+        "z": "7f32e7209b0fdfce",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "autoCheck",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 300,
+        "wires": [
+            [
+                "d46b9d97890f1dfa"
+            ]
+        ]
+    }
+]
