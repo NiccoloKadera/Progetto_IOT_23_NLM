@@ -1,0 +1,69 @@
+[
+    {
+        "id": "f4e5d8690d7d4b2f",
+        "type": "change",
+        "z": "39acb8f913a5e545",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t   {\t       \"clear\":true,\t       \"text\":\"ciao mondo!\",\t       \"alignment\":\"left\"\t   },\t   {\t       \"clear\":true,\t       \"text\":\"hello world!\",\t       \"alignment\":\"left\"\t   }\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "1de194233d5f1f6b"
+            ]
+        ]
+    },
+    {
+        "id": "1de194233d5f1f6b",
+        "type": "LCD-I2C",
+        "z": "39acb8f913a5e545",
+        "name": "",
+        "variant": "PCF8574",
+        "size": "20x4",
+        "x": 580,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "9d0a7a1ba21f59a1",
+        "type": "inject",
+        "z": "39acb8f913a5e545",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "f4e5d8690d7d4b2f"
+            ]
+        ]
+    }
+]
