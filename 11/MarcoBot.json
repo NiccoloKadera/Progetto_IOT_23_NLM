@@ -1,0 +1,1105 @@
+[
+    {
+        "id": "01b62e18c7411acd",
+        "type": "tab",
+        "label": "Telegram Bot Mac",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6a46e29ecd45d2ba",
+        "type": "chatbot-telegram-receive",
+        "z": "01b62e18c7411acd",
+        "bot": "e67f7a0759f2911d",
+        "botProduction": "e67f7a0759f2911d",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "68760ce7302f70e9",
+                "722b4d5b7f16256c"
+            ]
+        ]
+    },
+    {
+        "id": "61c4b6b36828b79c",
+        "type": "chatbot-telegram-send",
+        "z": "01b62e18c7411acd",
+        "bot": "e67f7a0759f2911d",
+        "botProduction": "e67f7a0759f2911d",
+        "track": false,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 0,
+        "x": 1790,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5518028a811cbc6d",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "Ciao sono marco, E TI SPACCO!1!1!"
+            }
+        ],
+        "language": "it",
+        "x": 1400,
+        "y": 180,
+        "wires": [
+            [
+                "61c4b6b36828b79c",
+                "fb1b7f9571795597"
+            ]
+        ]
+    },
+    {
+        "id": "1fef631da450cb82",
+        "type": "chatbot-rules",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "rules": [
+            {
+                "type": "command",
+                "command": "/start"
+            },
+            {
+                "type": "command",
+                "command": "/guida"
+            },
+            {
+                "type": "command",
+                "command": "/registrazione"
+            },
+            {
+                "type": "notMessageType",
+                "messageType": "command"
+            }
+        ],
+        "outputs": 4,
+        "x": 1150,
+        "y": 220,
+        "wires": [
+            [
+                "5518028a811cbc6d"
+            ],
+            [
+                "3daa811c8b0ce9d2"
+            ],
+            [
+                "97de5be9c5503183"
+            ],
+            [
+                "2db007da0156d6bb",
+                "724014ab0d6d1baa"
+            ]
+        ]
+    },
+    {
+        "id": "3daa811c8b0ce9d2",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "SCRIVIMI E TI FARÒ VEDERE COME TI SPACCO TUTTOOO"
+            }
+        ],
+        "language": "it",
+        "x": 1400,
+        "y": 220,
+        "wires": [
+            [
+                "61c4b6b36828b79c",
+                "fb1b7f9571795597"
+            ]
+        ]
+    },
+    {
+        "id": "b85f1712fd5b84e8",
+        "type": "chatbot-telegram-send",
+        "z": "01b62e18c7411acd",
+        "bot": "e67f7a0759f2911d",
+        "botProduction": "e67f7a0759f2911d",
+        "track": true,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 1,
+        "x": 1650,
+        "y": 300,
+        "wires": [
+            [
+                "e923b61952d81b62"
+            ]
+        ]
+    },
+    {
+        "id": "97de5be9c5503183",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "Sarei grato se inserissi la tua mail. OPPURE TI SPACCOO"
+            }
+        ],
+        "language": "it",
+        "x": 1400,
+        "y": 260,
+        "wires": [
+            [
+                "b85f1712fd5b84e8",
+                "fb1b7f9571795597"
+            ]
+        ]
+    },
+    {
+        "id": "046a5274e60f7cad",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "Sarei grato se inserissi la tua nome. OPPURE TI SPACCOO"
+            }
+        ],
+        "language": "it",
+        "x": 1860,
+        "y": 480,
+        "wires": [
+            [
+                "a5b4ea132790e66c"
+            ]
+        ]
+    },
+    {
+        "id": "a5b4ea132790e66c",
+        "type": "chatbot-telegram-send",
+        "z": "01b62e18c7411acd",
+        "bot": "e67f7a0759f2911d",
+        "botProduction": "e67f7a0759f2911d",
+        "track": true,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 1,
+        "x": 2170,
+        "y": 440,
+        "wires": [
+            [
+                "7a1df3aab86c7f25"
+            ]
+        ]
+    },
+    {
+        "id": "644c132b1c8a1df3",
+        "type": "chatbot-telegram-send",
+        "z": "01b62e18c7411acd",
+        "bot": "e67f7a0759f2911d",
+        "botProduction": "e67f7a0759f2911d",
+        "track": false,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 0,
+        "x": 2610,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "eba13dabc5d7a3ce",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "GRAZIEEEE. Ti spaccherò più tardi"
+            }
+        ],
+        "language": "it",
+        "x": 2340,
+        "y": 660,
+        "wires": [
+            [
+                "644c132b1c8a1df3",
+                "1ad3a5cfbf878273",
+                "22c10b0a980be672"
+            ]
+        ]
+    },
+    {
+        "id": "e923b61952d81b62",
+        "type": "chatbot-parse",
+        "z": "01b62e18c7411acd",
+        "name": "Mail",
+        "parseType": "string",
+        "parseVariable": "Mail",
+        "x": 1710,
+        "y": 380,
+        "wires": [
+            [
+                "046a5274e60f7cad"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7a1df3aab86c7f25",
+        "type": "chatbot-parse",
+        "z": "01b62e18c7411acd",
+        "name": "Nome",
+        "parseType": "string",
+        "parseVariable": "Nome",
+        "x": 2450,
+        "y": 580,
+        "wires": [
+            [
+                "eba13dabc5d7a3ce"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6f808644e82b33f0",
+        "type": "debug",
+        "z": "01b62e18c7411acd",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3180,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "1ad3a5cfbf878273",
+        "type": "function",
+        "z": "01b62e18c7411acd",
+        "name": "function 1",
+        "func": "var chat = msg.chat()\nvar nome = chat.get('Nome')\nvar mail = chat.get('Mail')\nvar chat_it = msg.payload.chatId\nmsg.payload = {\n    'Nome': nome,\n    'Mail': mail,\n    'Telegram_Id': chat_it\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2720,
+        "y": 580,
+        "wires": [
+            [
+                "6f808644e82b33f0",
+                "86a904052ee27653"
+            ]
+        ]
+    },
+    {
+        "id": "cda714181c8a6f1a",
+        "type": "comment",
+        "z": "01b62e18c7411acd",
+        "name": "Risposta e registrazione",
+        "info": "",
+        "x": 200,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "23d26fa403af9873",
+        "type": "comment",
+        "z": "01b62e18c7411acd",
+        "name": "Db",
+        "info": "",
+        "x": 130,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "a4a10edd4d981d8d",
+        "type": "sqlite",
+        "z": "01b62e18c7411acd",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "CREATE TABLE Utenti (\n    ID INTEGER PRIMARY KEY AUTOINCREMENT,\n    Nome varchar(255),\n    Mail varchar(255),\n    Telegram_Id varchar(100)\n);",
+        "name": "CREATE UTENTI",
+        "x": 410,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0a012c3612513700",
+        "type": "inject",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 1220,
+        "wires": [
+            [
+                "a4a10edd4d981d8d"
+            ]
+        ]
+    },
+    {
+        "id": "b59ddad35cf454cd",
+        "type": "sqlite",
+        "z": "01b62e18c7411acd",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "DROP TABLE Utenti",
+        "name": "DROP UTENTI",
+        "x": 480,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c32264d610a4861",
+        "type": "inject",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 1280,
+        "wires": [
+            [
+                "b59ddad35cf454cd"
+            ]
+        ]
+    },
+    {
+        "id": "20c15a5ba9dfcee8",
+        "type": "sqlite",
+        "z": "01b62e18c7411acd",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "prepared",
+        "sql": "INSERT INTO Utenti VALUES (null, ?, ?, ?);",
+        "name": "INSERT IN UTENTI",
+        "x": 3350,
+        "y": 860,
+        "wires": [
+            [
+                "346f1a07272c8075"
+            ]
+        ]
+    },
+    {
+        "id": "86a904052ee27653",
+        "type": "change",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "params",
+                "pt": "msg",
+                "to": "[\t    payload.Nome,\t    payload.Mail,\t    payload.Telegram_Id\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3080,
+        "y": 860,
+        "wires": [
+            [
+                "20c15a5ba9dfcee8"
+            ]
+        ]
+    },
+    {
+        "id": "346f1a07272c8075",
+        "type": "sqlite",
+        "z": "01b62e18c7411acd",
+        "mydb": "6f9889f2e722a38b",
+        "sqlquery": "fixed",
+        "sql": "SELECT * FROM Utenti",
+        "name": "SELECT UTENTI",
+        "x": 3630,
+        "y": 860,
+        "wires": [
+            [
+                "8cd13752cd2ab6b6"
+            ]
+        ]
+    },
+    {
+        "id": "8cd13752cd2ab6b6",
+        "type": "debug",
+        "z": "01b62e18c7411acd",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3920,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "92da8475088a24c9",
+        "type": "change",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Telegram_Id",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2720,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "22c10b0a980be672",
+        "type": "debug",
+        "z": "01b62e18c7411acd",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2700,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "fb1b7f9571795597",
+        "type": "debug",
+        "z": "01b62e18c7411acd",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1700,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "72967d9e3652687d",
+        "type": "switch",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "spacco",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "volere",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ciao",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "forte",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "franco",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "niccolo",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "niccolò",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "luca",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 150,
+        "y": 520,
+        "wires": [
+            [
+                "8b19fefa05dabc5b"
+            ],
+            [
+                "3433eca754a84961"
+            ],
+            [
+                "7f8a82661933c877"
+            ],
+            [
+                "9ca2e5931844aa66"
+            ],
+            [
+                "31ef6b04d99797d0"
+            ],
+            [
+                "c6de39742353cc39"
+            ],
+            [
+                "c6de39742353cc39"
+            ],
+            [
+                "c6de39742353cc39"
+            ],
+            [
+                "98c06394f19bb569"
+            ]
+        ]
+    },
+    {
+        "id": "2db007da0156d6bb",
+        "type": "debug",
+        "z": "01b62e18c7411acd",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "724014ab0d6d1baa",
+        "type": "change",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.content",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 360,
+        "wires": [
+            [
+                "596ca03991a1c95c"
+            ]
+        ]
+    },
+    {
+        "id": "9d9106a4421bf306",
+        "type": "chatbot-telegram-send",
+        "z": "01b62e18c7411acd",
+        "bot": "e67f7a0759f2911d",
+        "botProduction": "e67f7a0759f2911d",
+        "track": false,
+        "passThrough": false,
+        "errorOutput": false,
+        "outputs": 0,
+        "x": 590,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "8b19fefa05dabc5b",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "SONO PIÙ FORTE IO TANTOOOO"
+            }
+        ],
+        "language": "it",
+        "x": 380,
+        "y": 500,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "3433eca754a84961",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "MARCO VUOLE SOLO SPACCARE"
+            }
+        ],
+        "language": "it",
+        "x": 380,
+        "y": 540,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "7f8a82661933c877",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "NON MI SALUTARE, MARCO VUOLE SOLO SPACCARE"
+            }
+        ],
+        "language": "it",
+        "x": 380,
+        "y": 580,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "68760ce7302f70e9",
+        "type": "switch",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "property": "payload.chatId",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "bannedId",
+                "vt": "flow"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "d4ef339b4b2c354a"
+            ],
+            [
+                "1fef631da450cb82"
+            ]
+        ]
+    },
+    {
+        "id": "d4ef339b4b2c354a",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "Non posso competere con il possente marco, ADDIO"
+            }
+        ],
+        "language": "it",
+        "x": 660,
+        "y": 140,
+        "wires": [
+            [
+                "61c4b6b36828b79c"
+            ]
+        ]
+    },
+    {
+        "id": "9ca2e5931844aa66",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "Secondo l'universià del missisipi marco è il più forte spaccone. NON SI DISCUTE"
+            }
+        ],
+        "language": "it",
+        "x": 380,
+        "y": 640,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "31ef6b04d99797d0",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "NON NOMINARE FRANCO. L'ho spaccato 6 mesi fa"
+            }
+        ],
+        "language": "it",
+        "x": 380,
+        "y": 680,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "c6de39742353cc39",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "Completo io: È stupendo"
+            }
+        ],
+        "language": "it",
+        "x": 380,
+        "y": 720,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "bb6ccd7cd4ab69be",
+        "type": "comment",
+        "z": "01b62e18c7411acd",
+        "name": "Risposte",
+        "info": "",
+        "x": 320,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "bdc0b4e0d2287633",
+        "type": "comment",
+        "z": "01b62e18c7411acd",
+        "name": "Comandi",
+        "info": "",
+        "x": 1260,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "596ca03991a1c95c",
+        "type": "function",
+        "z": "01b62e18c7411acd",
+        "name": "function 2",
+        "func": "msg.payload = msg.payload.toLowerCase()\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 420,
+        "wires": [
+            [
+                "72967d9e3652687d"
+            ]
+        ]
+    },
+    {
+        "id": "e01dd2d7e9ff2c68",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "SE ME LO RICHIEDI UN'ALTRA VOLTA TI SPACCO"
+            }
+        ],
+        "language": "it",
+        "x": 860,
+        "y": 880,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "98c06394f19bb569",
+        "type": "function",
+        "z": "01b62e18c7411acd",
+        "name": "function 3",
+        "func": "function getRandomInt(max) {\n    return Math.floor(Math.random() * max);\n}\nmsg.payload = getRandomInt(4)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 940,
+        "wires": [
+            [
+                "71c9d8de9b1e1eb8"
+            ]
+        ]
+    },
+    {
+        "id": "71c9d8de9b1e1eb8",
+        "type": "switch",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 450,
+        "y": 940,
+        "wires": [
+            [
+                "e01dd2d7e9ff2c68"
+            ],
+            [
+                "85a1ba1046ba0ff7"
+            ],
+            [
+                "b9390644d3fd2cbd"
+            ],
+            [
+                "435aacac71d6a869"
+            ]
+        ]
+    },
+    {
+        "id": "85a1ba1046ba0ff7",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "VOGLIO DOMANDE INTERESSANTI"
+            }
+        ],
+        "language": "it",
+        "x": 860,
+        "y": 920,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "b9390644d3fd2cbd",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "BASTA SONO PIENO, TI SPACCO"
+            }
+        ],
+        "language": "it",
+        "x": 860,
+        "y": 960,
+        "wires": [
+            [
+                "9d9106a4421bf306"
+            ]
+        ]
+    },
+    {
+        "id": "435aacac71d6a869",
+        "type": "chatbot-message",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "message": [
+            {
+                "message": "TI BANNO"
+            }
+        ],
+        "language": "it",
+        "x": 860,
+        "y": 1000,
+        "wires": [
+            [
+                "02a97483b3c514cf"
+            ]
+        ]
+    },
+    {
+        "id": "02a97483b3c514cf",
+        "type": "change",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "bannedId",
+                "pt": "flow",
+                "to": "lastId",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1230,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "722b4d5b7f16256c",
+        "type": "change",
+        "z": "01b62e18c7411acd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lastId",
+                "pt": "flow",
+                "to": "payload.chatId",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e67f7a0759f2911d",
+        "type": "chatbot-telegram-node",
+        "botname": "MarcoSpaccatutto_bot",
+        "usernames": "",
+        "polling": "1000",
+        "store": "",
+        "log": "",
+        "debug": false,
+        "skipMediaFiles": false,
+        "webHook": "",
+        "connectMode": "polling",
+        "storeMessages": true,
+        "enableMissionControl": false,
+        "inspectMessages": true,
+        "chatbotId": ""
+    },
+    {
+        "id": "6f9889f2e722a38b",
+        "type": "sqlitedb",
+        "db": "database1",
+        "mode": "RWC"
+    }
+]
