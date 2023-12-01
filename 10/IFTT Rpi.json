@@ -1,0 +1,129 @@
+[
+    {
+        "id": "df2340f6b20b05a5",
+        "type": "tab",
+        "label": "ifttp",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a3257863f2c94fac",
+        "type": "ifttt out",
+        "z": "df2340f6b20b05a5",
+        "eventName": "evento",
+        "key": "0e02d9bc9f9556ce",
+        "x": 290,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "bc8dc98b77944b09",
+        "type": "inject",
+        "z": "df2340f6b20b05a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"value1\":\"primo valore\",\"value2\":\"secondo valore\",\"value3\":\"terzo valore\"}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "a3257863f2c94fac"
+            ]
+        ]
+    },
+    {
+        "id": "ecbd2bd9.95c6d8",
+        "type": "python-function",
+        "z": "df2340f6b20b05a5",
+        "name": "",
+        "func": "#!/usr/bin/env python3\n#------------------------------------------------------\n#\n#\t\tThis is a program for PCF8591 Module.\n#\n#\t\tWarnng! The Analog input MUST NOT be over 3.3V!\n#    \n#\t\tIn this script, we use a poteniometer for analog\n#   input, and a LED on AO for analog output.\n#\n#\t\tyou can import this script to another by:\n#\timport PCF8591 as ADC\n#\t\n#\tADC.Setup(Address)  # Check it by sudo i2cdetect -y -1\n#\tADC.read(channal)\t# Channal range from 0 to 3\n#\tADC.write(Value)\t# Value range from 0 to 255\t\t\n#\n#------------------------------------------------------\nimport smbus\nimport time\n\n# for RPI version 1, use \"bus = smbus.SMBus(0)\"\nbus = smbus.SMBus(1)\n\n#check your PCF8591 address by type in 'sudo i2cdetect -y -1' in terminal.\ndef setup(Addr):\n\tglobal address\n\taddress = Addr\n\ndef read(chn): #channel\n\ttry:\n\t\tif chn == 0:\n\t\t\tbus.write_byte(address,0x40)\n\t\tif chn == 1:\n\t\t\tbus.write_byte(address,0x41)\n\t\tif chn == 2:\n\t\t\tbus.write_byte(address,0x42)\n\t\tif chn == 3:\n\t\t\tbus.write_byte(address,0x43)\n\t\tbus.read_byte(address) # dummy read to start conversion\n\texcept Exception as e:\n\t\tmsg[\"error\"]=(\"Address: %s\" % address)\n\treturn bus.read_byte(address)\n\ndef write(val):\n\ttry:\n\t\ttemp = val # move string value to temp\n\t\ttemp = int(temp) # change string to integer\n\t\t# print temp to see on terminal else comment out\n\t\tbus.write_byte_data(address, 0x40, temp)\n\texcept Exception as e:\n\t\tmsg[\"error\"]=(\"Error: Device address: 0x%2X\" % address)\n\nif __name__ == \"__main__\":\n\tsetup(0x48)\n\tmsg[\"payload\"]=read(msg[\"payload\"])\nreturn msg",
+        "outputs": 1,
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "e8f14fb0.166ff",
+                "f6a1f445aa1cecf1"
+            ]
+        ]
+    },
+    {
+        "id": "8edfac55.81ae7",
+        "type": "inject",
+        "z": "df2340f6b20b05a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "ecbd2bd9.95c6d8"
+            ]
+        ]
+    },
+    {
+        "id": "e8f14fb0.166ff",
+        "type": "debug",
+        "z": "df2340f6b20b05a5",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "error",
+        "targetType": "msg",
+        "x": 520,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f6a1f445aa1cecf1",
+        "type": "debug",
+        "z": "df2340f6b20b05a5",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "0e02d9bc9f9556ce",
+        "type": "ifttt-key"
+    }
+]
