@@ -1,1 +1,1096 @@
-[{"id":"a98df67984898219","type":"tab","label":"Ricevimento Progetto Finale","disabled":false,"info":"","env":[]},{"id":"91aa2e5d3c8f774c","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"fixed","sql":"CREATE TABLE WindowData (\n    ID INTEGER PRIMARY KEY AUTOINCREMENT,\n    TimeSt varchar(255),\n    ObjectID varchar(17),\n    Temperature varchar(4),\n    Humidity varchar(4),\n    Rain varchar(10),\n);","name":"CREATE WINDOWDATA","x":510,"y":500,"wires":[[]]},{"id":"ff094c75676c2690","type":"inject","z":"a98df67984898219","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":220,"y":500,"wires":[["91aa2e5d3c8f774c"]]},{"id":"1982bcddcf84f977","type":"comment","z":"a98df67984898219","name":"Per creare db","info":"","x":250,"y":420,"wires":[]},{"id":"632c2b1f70d861f2","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"fixed","sql":"DROP TABLE WindowData","name":"DROP WINDOWDATA","x":500,"y":560,"wires":[[]]},{"id":"2208edd7e1508187","type":"inject","z":"a98df67984898219","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":180,"y":560,"wires":[["632c2b1f70d861f2"]]},{"id":"f89bfb8fba4a39cf","type":"http in","z":"a98df67984898219","name":"","url":"/humidityHTTP","method":"post","upload":false,"swaggerDoc":"","x":220,"y":160,"wires":[["990265b74c64fb2d","9da110e02ad05a56"]]},{"id":"022c0210c3f8a38a","type":"comment","z":"a98df67984898219","name":"Ricevimento umidità HTTP","info":"Se GET:\nreq.query\n\nSe POST:\npayload","x":210,"y":60,"wires":[]},{"id":"bb394a3e889e2c36","type":"ui_table","z":"a98df67984898219","group":"eb52cac3b3904f3e","name":"","order":0,"width":0,"height":0,"columns":[],"outputs":0,"cts":false,"x":1970,"y":400,"wires":[]},{"id":"e38bf84d5f59333c","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"prepared","sql":"INSERT INTO WindowData VALUES (null, ?, ?, ?, ?);","name":"INSERT IN WINDOWDATA","x":1400,"y":400,"wires":[["9d4631f13f6286a9"]]},{"id":"13f22b7c0cb7bab3","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"params","pt":"msg","to":"[\t    payload.Timestamp,\t    payload.ObjectID,\t    payload.Temperature,\t    payload.Humidity\t]","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":1100,"y":360,"wires":[["e38bf84d5f59333c"]]},{"id":"9d4631f13f6286a9","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"fixed","sql":"SELECT * FROM WindowData","name":"SELECT WINDOWDATA","x":1710,"y":400,"wires":[["bb394a3e889e2c36"]]},{"id":"9de7d55755232bdf","type":"comment","z":"a98df67984898219","name":"Select db","info":"","x":1240,"y":280,"wires":[]},{"id":"4293d447bbe55c8e","type":"http response","z":"a98df67984898219","name":"","statusCode":"","headers":{},"x":850,"y":100,"wires":[]},{"id":"5431af0aaff8b8e1","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"{\"status\": 1}","tot":"json"}],"action":"","property":"","from":"","to":"","reg":false,"x":660,"y":60,"wires":[["4293d447bbe55c8e"]]},{"id":"990265b74c64fb2d","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"{\t    \"ObjectID\": payload.ObjectID,\t    \"Temperature\": payload.Temperature,\t    \"Humidity\": payload.Humidity,\t    \"Timestamp\": payload.Timestamp\t}","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":440,"y":200,"wires":[["13f22b7c0cb7bab3","6e4fbe9ad77ee45b","38efe9426893e287","c9b832bb86b46f4a"]]},{"id":"4fc5f3d84b0df720","type":"ui_chart","z":"a98df67984898219","name":"","group":"eb52cac3b3904f3e","order":1,"width":0,"height":0,"label":"Humidity","chartType":"line","legend":"false","xformat":"HH:mm:ss","interpolate":"linear","nodata":"","dot":false,"ymin":"","ymax":"","removeOlder":1,"removeOlderPoints":"","removeOlderUnit":"3600","cutout":0,"useOneColor":false,"useUTC":false,"colors":["#1f77b4","#aec7e8","#ff7f0e","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5"],"outputs":1,"useDifferentColor":false,"className":"","x":1800,"y":100,"wires":[[]]},{"id":"ab07e5c1c625810a","type":"ui_chart","z":"a98df67984898219","name":"","group":"eb52cac3b3904f3e","order":1,"width":0,"height":0,"label":"Temperature","chartType":"line","legend":"false","xformat":"HH:mm:ss","interpolate":"linear","nodata":"","dot":false,"ymin":"","ymax":"","removeOlder":1,"removeOlderPoints":"","removeOlderUnit":"3600","cutout":0,"useOneColor":false,"useUTC":false,"colors":["#1f77b4","#aec7e8","#ff7f0e","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5"],"outputs":1,"useDifferentColor":false,"className":"","x":1810,"y":160,"wires":[[]]},{"id":"6e4fbe9ad77ee45b","type":"change","z":"a98df67984898219","name":"Change to Temperature","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload.Temperature","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":1530,"y":160,"wires":[["ab07e5c1c625810a"]]},{"id":"38efe9426893e287","type":"change","z":"a98df67984898219","name":"Change to Humidity","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload.Humidity","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":1520,"y":100,"wires":[["4fc5f3d84b0df720"]]},{"id":"dcb515fc5284f098","type":"comment","z":"a98df67984898219","name":"Grafici","info":"","x":1470,"y":40,"wires":[]},{"id":"c9b832bb86b46f4a","type":"debug","z":"a98df67984898219","name":"debug 7","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","statusVal":"","statusType":"auto","x":1200,"y":120,"wires":[]},{"id":"9da110e02ad05a56","type":"switch","z":"a98df67984898219","name":"","property":"payload","propertyType":"msg","rules":[{"t":"empty"},{"t":"else"}],"checkall":"true","repair":false,"outputs":2,"x":470,"y":100,"wires":[["5431af0aaff8b8e1"],["148b69ac87f6ed4b"]]},{"id":"148b69ac87f6ed4b","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"{\"status\":0}","tot":"json"}],"action":"","property":"","from":"","to":"","reg":false,"x":660,"y":140,"wires":[["4293d447bbe55c8e"]]},{"id":"fd520613772aa750","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"fixed","sql":"SELECT * FROM WindowData\n    ORDER BY ID\n    DESC LIMIT 1","name":"SELECT LAST DBWINDOWDATA","x":500,"y":680,"wires":[["beaab1b1e5fcec53","d8c2e89ff9c0f45c"]]},{"id":"636045db28c811a5","type":"inject","z":"a98df67984898219","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":180,"y":680,"wires":[["fd520613772aa750"]]},{"id":"beaab1b1e5fcec53","type":"debug","z":"a98df67984898219","name":"debug 8","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","statusVal":"","statusType":"auto","x":780,"y":740,"wires":[]},{"id":"ec9505833846a2bd","type":"http in","z":"a98df67984898219","name":"","url":"/humidityHTTP","method":"get","upload":false,"swaggerDoc":"","x":170,"y":760,"wires":[["fd520613772aa750"]]},{"id":"d8c2e89ff9c0f45c","type":"http response","z":"a98df67984898219","name":"","statusCode":"","headers":{},"x":810,"y":640,"wires":[]},{"id":"75f34a82d298b0e2","type":"http in","z":"a98df67984898219","name":"","url":"/humidityHTTP","method":"put","upload":false,"swaggerDoc":"","x":290,"y":860,"wires":[["4aed54e49f5a8267","d6465ea335bb1a08"]]},{"id":"247ff04070429df7","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"prepared","sql":"UPDATE WindowData SET Temperature = ? WHERE ID = ?","name":"UPDATE WINDOWDATA","x":890,"y":860,"wires":[["9d4631f13f6286a9","d41d6f82270e9f1c"]]},{"id":"4aed54e49f5a8267","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"params","pt":"msg","to":"[\t    payload.Temperature,\t    payload.ID\t]","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":520,"y":940,"wires":[["247ff04070429df7","8c05b7849222c36d","da3806aabf6b8a36"]]},{"id":"8c05b7849222c36d","type":"debug","z":"a98df67984898219","name":"debug 9","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"params","targetType":"msg","statusVal":"","statusType":"auto","x":800,"y":920,"wires":[]},{"id":"0b871d222b5a77d0","type":"http response","z":"a98df67984898219","name":"","statusCode":"","headers":{},"x":970,"y":1060,"wires":[]},{"id":"a546b6170f82a902","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"{\"status\": 1}","tot":"json"}],"action":"","property":"","from":"","to":"","reg":false,"x":780,"y":1020,"wires":[["0b871d222b5a77d0"]]},{"id":"da3806aabf6b8a36","type":"switch","z":"a98df67984898219","name":"","property":"payload","propertyType":"msg","rules":[{"t":"empty"},{"t":"else"}],"checkall":"true","repair":false,"outputs":2,"x":590,"y":1060,"wires":[["a546b6170f82a902"],["4f0dfc2390c299bc"]]},{"id":"4f0dfc2390c299bc","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"{\"status\":0}","tot":"json"}],"action":"","property":"","from":"","to":"","reg":false,"x":780,"y":1100,"wires":[["0b871d222b5a77d0"]]},{"id":"d6465ea335bb1a08","type":"debug","z":"a98df67984898219","name":"debug 10","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","statusVal":"","statusType":"auto","x":620,"y":840,"wires":[]},{"id":"d41d6f82270e9f1c","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"fixed","sql":"SELECT * FROM WindowData\n    WHERE ID = 1","name":"SELECT WINDOWDATA","x":1110,"y":920,"wires":[["8e04d27a348a88cc"]]},{"id":"8e04d27a348a88cc","type":"debug","z":"a98df67984898219","name":"debug 11","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":1300,"y":920,"wires":[]},{"id":"3e34000d42ef3f8d","type":"http in","z":"a98df67984898219","name":"","url":"/humidityHTTP","method":"delete","upload":false,"swaggerDoc":"","x":300,"y":1260,"wires":[["cfd9f5d1cb17d29d"]]},{"id":"77e9be64907fb89e","type":"sqlite","z":"a98df67984898219","mydb":"6f9889f2e722a38b","sqlquery":"prepared","sql":"DELETE FROM WindowData \n    WHERE ID = ?","name":"DELETE WINDOWDATA","x":890,"y":1260,"wires":[["9d4631f13f6286a9"]]},{"id":"cfd9f5d1cb17d29d","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"params","pt":"msg","to":"[\t   payload.ID\t]","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":580,"y":1260,"wires":[["77e9be64907fb89e","787f60476c887012","d7f292f9d2d1d81f"]]},{"id":"787f60476c887012","type":"debug","z":"a98df67984898219","name":"debug 12","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"params","targetType":"msg","statusVal":"","statusType":"auto","x":800,"y":1320,"wires":[]},{"id":"1637ae6524611f7b","type":"http response","z":"a98df67984898219","name":"","statusCode":"","headers":{},"x":970,"y":1460,"wires":[]},{"id":"32a5bbc5f5702902","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"{\"status\": 1}","tot":"json"}],"action":"","property":"","from":"","to":"","reg":false,"x":780,"y":1420,"wires":[["1637ae6524611f7b"]]},{"id":"d7f292f9d2d1d81f","type":"switch","z":"a98df67984898219","name":"","property":"payload","propertyType":"msg","rules":[{"t":"empty"},{"t":"else"}],"checkall":"true","repair":false,"outputs":2,"x":590,"y":1460,"wires":[["32a5bbc5f5702902"],["0585d44f0fb34e03"]]},{"id":"0585d44f0fb34e03","type":"change","z":"a98df67984898219","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"{\"status\":0}","tot":"json"}],"action":"","property":"","from":"","to":"","reg":false,"x":780,"y":1500,"wires":[["1637ae6524611f7b"]]},{"id":"6f9889f2e722a38b","type":"sqlitedb","db":"database1","mode":"RWC"},{"id":"eb52cac3b3904f3e","type":"ui_group","name":"Select","tab":"a940b8b197d490ec","order":1,"disp":true,"width":"12","collapse":false,"className":""},{"id":"a940b8b197d490ec","type":"ui_tab","name":"Sqlite HTTP Humidità","icon":"dashboard","order":3,"disabled":false,"hidden":false}]
+[
+    {
+        "id": "ebbf49736275a445",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cf952c49da0db4e3",
+        "type": "http in",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "url": "/raindrop",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "757fb6d39f374abf"
+            ]
+        ]
+    },
+    {
+        "id": "9802d1b2396afc51",
+        "type": "http request",
+        "z": "ebbf49736275a445",
+        "name": "post raindrop",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:1880/raindrop",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 490,
+        "y": 920,
+        "wires": [
+            [
+                "895dbc459cf7d90c"
+            ]
+        ]
+    },
+    {
+        "id": "0516666e5329fbf7",
+        "type": "inject",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 920,
+        "wires": [
+            [
+                "dc791561539b5350"
+            ]
+        ]
+    },
+    {
+        "id": "dc791561539b5350",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"timestamp\": payload,\t    \"device_id\": \"device 2\",\t    \"rain\": 0,\t    \"temperature\": 30,\t    \"humidity\": 0.5\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 920,
+        "wires": [
+            [
+                "9802d1b2396afc51"
+            ]
+        ]
+    },
+    {
+        "id": "757fb6d39f374abf",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "params",
+                "pt": "msg",
+                "to": "[\t    payload.timestamp,\t    payload.device_id,\t    payload.rain,\t    payload.temperature,\t    payload.humidity\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "dfe74d5a93958312"
+            ]
+        ]
+    },
+    {
+        "id": "ecc68af71cab26b0",
+        "type": "http response",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 670,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "895dbc459cf7d90c",
+        "type": "switch",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 920,
+        "wires": [
+            [
+                "44bb38090fe2e6db"
+            ],
+            [
+                "b66001deb95479f2"
+            ]
+        ]
+    },
+    {
+        "id": "3ffa6a890b46f5d7",
+        "type": "debug",
+        "z": "ebbf49736275a445",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "44bb38090fe2e6db",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"status\": msg.statusCode,\t    \"message\": \"insert successful\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 880,
+        "wires": [
+            [
+                "3ffa6a890b46f5d7"
+            ]
+        ]
+    },
+    {
+        "id": "b66001deb95479f2",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"status\": msg.statusCode,\t    \"message\": \"insert failed\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 960,
+        "wires": [
+            [
+                "3ffa6a890b46f5d7"
+            ]
+        ]
+    },
+    {
+        "id": "dfe74d5a93958312",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "prepared",
+        "sql": "INSERT INTO main\nVALUES (?,?,?,?,?)",
+        "name": "",
+        "x": 520,
+        "y": 360,
+        "wires": [
+            [
+                "ecc68af71cab26b0",
+                "7247eb3aaa588629",
+                "cdc3d7cb099ba335",
+                "684b41586d3e93ce",
+                "2b17aaba2ae6a7d3",
+                "807fd4f8042db1bf"
+            ]
+        ]
+    },
+    {
+        "id": "4b353da0e157fc60",
+        "type": "ui_table",
+        "z": "ebbf49736275a445",
+        "group": "6bf632d7013a7c91",
+        "name": "",
+        "order": 2,
+        "width": 12,
+        "height": 5,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1690,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "611d28eeace0b89a",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "fixed",
+        "sql": "SELECT rowid, * FROM main ORDER BY rowid DESC LIMIT 1 ",
+        "name": "",
+        "x": 300,
+        "y": 740,
+        "wires": [
+            [
+                "f9f9acdc8f997ef0"
+            ]
+        ]
+    },
+    {
+        "id": "4a5d9a2284330948",
+        "type": "http in",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "url": "/raindrop",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 740,
+        "wires": [
+            [
+                "611d28eeace0b89a"
+            ]
+        ]
+    },
+    {
+        "id": "26abdc2aa66f64b6",
+        "type": "inject",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "611d28eeace0b89a"
+            ]
+        ]
+    },
+    {
+        "id": "ce62e741bc400915",
+        "type": "inject",
+        "z": "ebbf49736275a445",
+        "name": "DROP TABLE",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DROP TABLE IF EXISTS main",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "06e4c0f2619e6fa4"
+            ]
+        ]
+    },
+    {
+        "id": "06e4c0f2619e6fa4",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 340,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "518a060d702d08f8",
+        "type": "inject",
+        "z": "ebbf49736275a445",
+        "name": "CREATE TABLE",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE IF NOT EXISTS main (     timestamp TEXT NOT NULL,     device_id TEXT NOT NULL,     rain BOOLEAN NOT NULL,     temperature REAL NOT NULL,     humidity REAL NOT NULL,     PRIMARY KEY (device_id, timestamp) )",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "06e4c0f2619e6fa4"
+            ]
+        ]
+    },
+    {
+        "id": "7247eb3aaa588629",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "fixed",
+        "sql": "SELECT rowid, * FROM main ORDER BY rowid DESC LIMIT 1 ",
+        "name": "",
+        "x": 680,
+        "y": 540,
+        "wires": [
+            [
+                "2d2a022808fc0ba2",
+                "3e9ff4c77ba50af8"
+            ]
+        ]
+    },
+    {
+        "id": "e43e99f5099f7f78",
+        "type": "ui_chart",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "group": "6bf632d7013a7c91",
+        "order": 3,
+        "width": 12,
+        "height": 8,
+        "label": "Line Chart",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 990,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2d2a022808fc0ba2",
+        "type": "function",
+        "z": "ebbf49736275a445",
+        "name": "lines",
+        "func": "var rain = {};\nvar temperature = {};\nvar humidity = {};\n\nrain.payload = msg.payload[0].rain;\nrain.topic = 'rain';\ntemperature.payload = msg.payload[0].temperature;\ntemperature.topic = 'temperature';\nhumidity.payload = msg.payload[0].humidity;\nhumidity.topic = 'humidity';\n\nreturn [rain, temperature, humidity];\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 540,
+        "wires": [
+            [
+                "e43e99f5099f7f78"
+            ],
+            [
+                "e43e99f5099f7f78"
+            ],
+            [
+                "e43e99f5099f7f78"
+            ]
+        ]
+    },
+    {
+        "id": "efb6143559207039",
+        "type": "function",
+        "z": "ebbf49736275a445",
+        "name": "clear chart",
+        "func": "msg.payload = [];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 600,
+        "wires": [
+            [
+                "e43e99f5099f7f78"
+            ]
+        ]
+    },
+    {
+        "id": "f9f9acdc8f997ef0",
+        "type": "debug",
+        "z": "ebbf49736275a445",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "b9c8e4e110ad8c7a",
+        "type": "http in",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "url": "/raindrop",
+        "method": "delete",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 680,
+        "y": 740,
+        "wires": [
+            [
+                "1e9c19cec3b5537e"
+            ]
+        ]
+    },
+    {
+        "id": "1e9c19cec3b5537e",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "params",
+                "pt": "msg",
+                "to": "[\t    payload.rowid\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 740,
+        "wires": [
+            [
+                "bb1c8927e6ed8d3d"
+            ]
+        ]
+    },
+    {
+        "id": "bb1c8927e6ed8d3d",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "prepared",
+        "sql": "DELETE FROM main WHERE rowid = ?",
+        "name": "",
+        "x": 1060,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d628e429c52ca456",
+        "type": "ui_gauge",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "group": "466bbded3e4d8df5",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Rain Counter 24h",
+        "label": "times",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1070,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "2b17aaba2ae6a7d3",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "fixed",
+        "sql": "SELECT \n    COUNT(CASE WHEN rain > 0 THEN 1 END) AS counter\nFROM main\nWHERE timestamp >= (SELECT MAX(timestamp) FROM main) - 86400000\n  AND timestamp <= (SELECT MAX(timestamp) FROM main);\n",
+        "name": "",
+        "x": 680,
+        "y": 180,
+        "wires": [
+            [
+                "17146fec117292af"
+            ]
+        ]
+    },
+    {
+        "id": "17146fec117292af",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0].counter",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 180,
+        "wires": [
+            [
+                "d628e429c52ca456"
+            ]
+        ]
+    },
+    {
+        "id": "684b41586d3e93ce",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "fixed",
+        "sql": "SELECT ROUND(AVG(temperature), 2) AS avg_temperature\nFROM main;\n",
+        "name": "",
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "ede6305eb0aafdbc"
+            ]
+        ]
+    },
+    {
+        "id": "ede6305eb0aafdbc",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0].avg_temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 240,
+        "wires": [
+            [
+                "c4b52bd82b94cb34"
+            ]
+        ]
+    },
+    {
+        "id": "c4b52bd82b94cb34",
+        "type": "ui_gauge",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "group": "466bbded3e4d8df5",
+        "order": 2,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Average Temperature",
+        "label": "value",
+        "format": "{{value}} °C",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1080,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "cdc3d7cb099ba335",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "fixed",
+        "sql": "SELECT ROUND(AVG(humidity), 2) AS avg_humidity\nFROM main;\n",
+        "name": "",
+        "x": 680,
+        "y": 300,
+        "wires": [
+            [
+                "b1eb356ab91fd1a9"
+            ]
+        ]
+    },
+    {
+        "id": "b1eb356ab91fd1a9",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0].avg_humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 300,
+        "wires": [
+            [
+                "b32d3a9d8989efd1"
+            ]
+        ]
+    },
+    {
+        "id": "b32d3a9d8989efd1",
+        "type": "ui_gauge",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "group": "466bbded3e4d8df5",
+        "order": 3,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Average Humidity",
+        "label": "value",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1070,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e8f915b5c8fa7fcb",
+        "type": "comment",
+        "z": "ebbf49736275a445",
+        "name": "parte raspberry pi",
+        "info": "",
+        "x": 140,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "3e9ff4c77ba50af8",
+        "type": "function",
+        "z": "ebbf49736275a445",
+        "name": "notify string",
+        "func": "msg.payload = `New record added - [device]: ${msg.payload[0].device_id} [rain]: ${msg.payload[0].rain} [temperature]: ${msg.payload[0].temperature} [humidity]: ${msg.payload[0].humidity}`;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 480,
+        "wires": [
+            [
+                "9fce4c8fee62d133"
+            ]
+        ]
+    },
+    {
+        "id": "9fce4c8fee62d133",
+        "type": "ui_toast",
+        "z": "ebbf49736275a445",
+        "position": "bottom right",
+        "displayTime": "10",
+        "highlight": "green",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1050,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "b6b062c325bc1ab3",
+        "type": "ui_button",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "group": "6bf632d7013a7c91",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "clear chart",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 670,
+        "y": 600,
+        "wires": [
+            [
+                "efb6143559207039"
+            ]
+        ]
+    },
+    {
+        "id": "85f4036a2f17debf",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "fixed",
+        "sql": "DELETE FROM main;\n",
+        "name": "",
+        "x": 1540,
+        "y": 360,
+        "wires": [
+            [
+                "4b353da0e157fc60"
+            ]
+        ]
+    },
+    {
+        "id": "a3557e6a8a144a4d",
+        "type": "ui_button",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "group": "6bf632d7013a7c91",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "clear database",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1360,
+        "y": 360,
+        "wires": [
+            [
+                "85f4036a2f17debf"
+            ]
+        ]
+    },
+    {
+        "id": "507e409c5c455d80",
+        "type": "change",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1040,
+        "y": 420,
+        "wires": [
+            [
+                "b8f31278e62b5f57"
+            ]
+        ]
+    },
+    {
+        "id": "807fd4f8042db1bf",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "fixed",
+        "sql": "SELECT DISTINCT device_id\nFROM main;\n",
+        "name": "",
+        "x": 680,
+        "y": 420,
+        "wires": [
+            [
+                "75dd858c32ed8482"
+            ]
+        ]
+    },
+    {
+        "id": "75dd858c32ed8482",
+        "type": "function",
+        "z": "ebbf49736275a445",
+        "name": "get options",
+        "func": "var inputArray = msg.payload;\n\nvar outputArray = inputArray.map(function(obj) {\n    return obj.device_id;\n});\n\nmsg.payload = outputArray;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 420,
+        "wires": [
+            [
+                "507e409c5c455d80"
+            ]
+        ]
+    },
+    {
+        "id": "b8f31278e62b5f57",
+        "type": "ui_dropdown",
+        "z": "ebbf49736275a445",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "place": "Select device",
+        "group": "6bf632d7013a7c91",
+        "order": 1,
+        "width": 12,
+        "height": 1,
+        "passthru": true,
+        "multiple": true,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 1220,
+        "y": 420,
+        "wires": [
+            [
+                "1daf12baf5da57f9"
+            ]
+        ]
+    },
+    {
+        "id": "1daf12baf5da57f9",
+        "type": "function",
+        "z": "ebbf49736275a445",
+        "name": "function 1",
+        "func": "var devicesArray = msg.payload; // Supponendo che l'array si trovi in msg.payload\n\n// Costruisci la parte della query IN dinamicamente\nvar inClause = devicesArray.map(device => `'${device}'`).join(',');\n\n// Assegna la query al campo `sql` del messaggio\nmsg.topic = `SELECT * FROM main WHERE device_id IN (${inClause})`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 420,
+        "wires": [
+            [
+                "d4b6d92479991e90"
+            ]
+        ]
+    },
+    {
+        "id": "d4b6d92479991e90",
+        "type": "sqlite",
+        "z": "ebbf49736275a445",
+        "mydb": "99d06e729a7151a0",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 1540,
+        "y": 420,
+        "wires": [
+            [
+                "4b353da0e157fc60"
+            ]
+        ]
+    },
+    {
+        "id": "99d06e729a7151a0",
+        "type": "sqlitedb",
+        "db": "raindrop",
+        "mode": "RWC"
+    },
+    {
+        "id": "6bf632d7013a7c91",
+        "type": "ui_group",
+        "name": "main",
+        "tab": "7e405941140d8767",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "466bbded3e4d8df5",
+        "type": "ui_group",
+        "name": "Gauges",
+        "tab": "7e405941140d8767",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "7e405941140d8767",
+        "type": "ui_tab",
+        "name": "raindrop",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
