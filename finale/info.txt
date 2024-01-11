@@ -1,0 +1,5 @@
+
+Telegram bot:
+Name: SmartWindow_bot
+UserName: SmartWindowIOT_bot
+Token: 6813661114:AAGJ8G_80pgNJyRrdmqvxH-0JvTCz-mAaU8
