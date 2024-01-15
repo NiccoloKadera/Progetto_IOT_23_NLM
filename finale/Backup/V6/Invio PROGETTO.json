@@ -1,0 +1,1575 @@
+[
+    {
+        "id": "b0701f164c4c3557",
+        "type": "tab",
+        "label": "Invio Progetto Finale",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1c1dda770105b0a2",
+        "type": "inject",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 220,
+        "wires": [
+            [
+                "b02a7a860defb9d1"
+            ]
+        ]
+    },
+    {
+        "id": "5d781d9c69d8f19a",
+        "type": "rpi-dht22",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "rpi-dht22",
+        "dht": "11",
+        "pintype": "0",
+        "pin": "5",
+        "x": 1160,
+        "y": 220,
+        "wires": [
+            [
+                "2388ea4881404885"
+            ]
+        ]
+    },
+    {
+        "id": "d6199181151fec3c",
+        "type": "comment",
+        "z": "b0701f164c4c3557",
+        "name": "dht11",
+        "info": "\nHumidity sensor\n\nVCC - 3v3\nGND - GND (primo in alto)\nSIG - GPIO5",
+        "x": 150,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f3d077a8e2679d3a",
+        "type": "comment",
+        "z": "b0701f164c4c3557",
+        "name": "Mac Raspberry",
+        "info": "Ether\n\neth0: d8:3a:dd:59:40:20\nwlan0: d8:3a:dd:59:40:21",
+        "x": 180,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "519e281f509ac626",
+        "type": "exec",
+        "z": "b0701f164c4c3557",
+        "command": "ifconfig eth0 | grep ether",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 410,
+        "y": 1040,
+        "wires": [
+            [
+                "e4f15ab5f1b6603f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e2015ada64ca1198",
+        "type": "inject",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 1040,
+        "wires": [
+            [
+                "519e281f509ac626"
+            ]
+        ]
+    },
+    {
+        "id": "93bc2ab404da6225",
+        "type": "debug",
+        "z": "b0701f164c4c3557",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "e4f15ab5f1b6603f",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substring(payload, 14, 17)\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "ObjectID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 1040,
+        "wires": [
+            [
+                "93bc2ab404da6225"
+            ]
+        ]
+    },
+    {
+        "id": "f8903b694a493070",
+        "type": "http request",
+        "z": "b0701f164c4c3557",
+        "name": "post raindrop",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "https://0028544.azurewebsites.net/raindrop",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1530,
+        "y": 220,
+        "wires": [
+            [
+                "dbe8d51e4a897046"
+            ]
+        ]
+    },
+    {
+        "id": "25636fb720119f86",
+        "type": "inject",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 800,
+        "wires": [
+            [
+                "66bfd19c1b7f7097"
+            ]
+        ]
+    },
+    {
+        "id": "a33c01457a37aa30",
+        "type": "debug",
+        "z": "b0701f164c4c3557",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "1804b78094347299",
+        "type": "json",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 510,
+        "y": 800,
+        "wires": [
+            [
+                "01724db1de15f783"
+            ]
+        ]
+    },
+    {
+        "id": "01724db1de15f783",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 800,
+        "wires": [
+            [
+                "a33c01457a37aa30"
+            ]
+        ]
+    },
+    {
+        "id": "66bfd19c1b7f7097",
+        "type": "http request",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 350,
+        "y": 800,
+        "wires": [
+            [
+                "1804b78094347299"
+            ]
+        ]
+    },
+    {
+        "id": "72d1c335a69c6cdb",
+        "type": "inject",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Temperature\":37,\"ID\":2}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 860,
+        "wires": [
+            [
+                "bc13d8d326056d18"
+            ]
+        ]
+    },
+    {
+        "id": "c09eb0089faf3102",
+        "type": "debug",
+        "z": "b0701f164c4c3557",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "3938c2b944aa8a92",
+        "type": "json",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 860,
+        "wires": [
+            [
+                "01be7228433ac523"
+            ]
+        ]
+    },
+    {
+        "id": "bc13d8d326056d18",
+        "type": "http request",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 330,
+        "y": 860,
+        "wires": [
+            [
+                "3938c2b944aa8a92"
+            ]
+        ]
+    },
+    {
+        "id": "01be7228433ac523",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.status",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 860,
+        "wires": [
+            [
+                "c09eb0089faf3102"
+            ]
+        ]
+    },
+    {
+        "id": "61fee0726845fb6e",
+        "type": "inject",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"rowid\":1}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 920,
+        "wires": [
+            [
+                "6802830b3454b5c3"
+            ]
+        ]
+    },
+    {
+        "id": "2ef61d5564a7f81d",
+        "type": "debug",
+        "z": "b0701f164c4c3557",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "5ddc302afe253bd8",
+        "type": "json",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 510,
+        "y": 920,
+        "wires": [
+            [
+                "e164ad118f17ac4f"
+            ]
+        ]
+    },
+    {
+        "id": "6802830b3454b5c3",
+        "type": "http request",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "method": "DELETE",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "0028544.azurewebsites.net/humidityHTTP",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 350,
+        "y": 920,
+        "wires": [
+            [
+                "5ddc302afe253bd8"
+            ]
+        ]
+    },
+    {
+        "id": "e164ad118f17ac4f",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.status",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 920,
+        "wires": [
+            [
+                "2ef61d5564a7f81d"
+            ]
+        ]
+    },
+    {
+        "id": "6fcaef9a5c411898",
+        "type": "comment",
+        "z": "b0701f164c4c3557",
+        "name": "HTTP",
+        "info": "",
+        "x": 150,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "b0db84a3db663a76",
+        "type": "comment",
+        "z": "b0701f164c4c3557",
+        "name": "LED",
+        "info": "R - GPIO 21\nGND - GND (Ultimo in basso)\nG - gpio 20",
+        "x": 2570,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "52d834c65e072bcd",
+        "type": "switch",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2610,
+        "y": 420,
+        "wires": [
+            [
+                "8d1d4aea30e25760",
+                "f6f40cffaa15bca0"
+            ],
+            [
+                "3a6938fcaff9335f",
+                "64a403718b157a6f"
+            ]
+        ]
+    },
+    {
+        "id": "8d1d4aea30e25760",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2820,
+        "y": 420,
+        "wires": [
+            [
+                "38173a4fd1ca2ca3"
+            ]
+        ]
+    },
+    {
+        "id": "b02a7a860defb9d1",
+        "type": "sensor-ds18b20",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "",
+        "sensorid": "28-06201568d8b1",
+        "timer": "60",
+        "repeat": false,
+        "x": 510,
+        "y": 220,
+        "wires": [
+            [
+                "86a9f55cfda34d83"
+            ]
+        ]
+    },
+    {
+        "id": "2388ea4881404885",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"timestamp\": $millis(),\t    \"device_id\": $globalContext(\"ObjectID\"),\t    \"rain\": $globalContext(\"rain\"),\t    \"temperature\": $globalContext(\"correctTemp\"),\t    \"humidity\": humidity\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1340,
+        "y": 220,
+        "wires": [
+            [
+                "f8903b694a493070"
+            ]
+        ]
+    },
+    {
+        "id": "86a9f55cfda34d83",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "correctTemp",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 220,
+        "wires": [
+            [
+                "8b6055b968ab4439"
+            ]
+        ]
+    },
+    {
+        "id": "912eba93ae956d01",
+        "type": "comment",
+        "z": "b0701f164c4c3557",
+        "name": "DS18B20",
+        "info": "\nSensore: DS18B20\n\nSensore temperatura GPIO:\n - GND -> GND in alto a sinistra\n - SIG -> GPIO4\n - VCC -> 3v3\n\n\nNodi:\n - node-red-contrib-sensor-ds18b20\n - node-red-contrib-ds18b20-sensor\n",
+        "x": 300,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8b6055b968ab4439",
+        "type": "python-function-ps",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "pythonPathType": "local",
+        "pythonPath": "python3",
+        "globalPythonName": "",
+        "importPathList": [],
+        "fnCodePre": "\n# user code here.\n",
+        "fnCode": "import RPi.GPIO as GPIO\n\nDO = 17\nGPIO.setmode(GPIO.BCM)\nGPIO.setup(DO, GPIO.IN)\nrain = GPIO.input(DO)\n\n\nrain = 0 if rain else 1\n\nnode.globals[\"rain\"] = rain\n\n\nreturn msg\n",
+        "fnCodePost": "\n# user code here.\n",
+        "x": 970,
+        "y": 220,
+        "wires": [
+            [
+                "5d781d9c69d8f19a"
+            ]
+        ]
+    },
+    {
+        "id": "dbe8d51e4a897046",
+        "type": "switch",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1690,
+        "y": 220,
+        "wires": [
+            [
+                "aba107612c278fd7"
+            ],
+            [
+                "d1d1064b868d487a"
+            ]
+        ]
+    },
+    {
+        "id": "aba107612c278fd7",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"status\": msg.statusCode,\t    \"message\": \"insert successful\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1860,
+        "y": 180,
+        "wires": [
+            [
+                "e67d7a0b24a26764",
+                "96ac990d453328dd"
+            ]
+        ]
+    },
+    {
+        "id": "d1d1064b868d487a",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"status\": msg.statusCode,\t    \"message\": \"insert successful\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1860,
+        "y": 260,
+        "wires": [
+            [
+                "e67d7a0b24a26764",
+                "96ac990d453328dd"
+            ]
+        ]
+    },
+    {
+        "id": "e67d7a0b24a26764",
+        "type": "debug",
+        "z": "b0701f164c4c3557",
+        "name": "debug 30",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2060,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0488372b63e80d93",
+        "type": "mqtt in",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowOpenCloseInput",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "8bb7dad40a40ac6a"
+            ]
+        ]
+    },
+    {
+        "id": "8c13d64a90ae2a99",
+        "type": "mqtt out",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowOpenCloseOutput",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 2470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "dd0597cddfb80f76",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LastRequest",
+                "pt": "global",
+                "to": "Open/Close",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 280,
+        "wires": [
+            [
+                "b02a7a860defb9d1"
+            ]
+        ]
+    },
+    {
+        "id": "96ac990d453328dd",
+        "type": "switch",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "LastRequest",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Open/Close",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Open/CloseAuto",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FetchData",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 2030,
+        "y": 220,
+        "wires": [
+            [
+                "f07e23bce8b2deba"
+            ],
+            [
+                "4863c12573bdacf5"
+            ],
+            [
+                "42ac0859234ecbdf"
+            ]
+        ]
+    },
+    {
+        "id": "c571000eeb4b7165",
+        "type": "mqtt in",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowFetchDataInput",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 400,
+        "wires": [
+            [
+                "9a88a1c5c1ec500d"
+            ]
+        ]
+    },
+    {
+        "id": "9a88a1c5c1ec500d",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LastRequest",
+                "pt": "global",
+                "to": "FetchData",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 400,
+        "wires": [
+            [
+                "b02a7a860defb9d1"
+            ]
+        ]
+    },
+    {
+        "id": "e75a35872aca94ef",
+        "type": "mqtt out",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowFetchDataOutput",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 2470,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "02e537e16ce45cc9",
+        "type": "mqtt in",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowOpenCloseAutoInput",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 340,
+        "wires": [
+            [
+                "8e0178c61da74aa6"
+            ]
+        ]
+    },
+    {
+        "id": "19400bfd8a787a70",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LastRequest",
+                "pt": "global",
+                "to": "Open/CloseAuto",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "b02a7a860defb9d1"
+            ]
+        ]
+    },
+    {
+        "id": "57d151973f874bda",
+        "type": "mqtt out",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowOpenCloseAutoOutput",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 2490,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8e0178c61da74aa6",
+        "type": "switch",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload.settings_window_mac",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ObjectID",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 340,
+        "wires": [
+            [
+                "19400bfd8a787a70"
+            ]
+        ]
+    },
+    {
+        "id": "8bb7dad40a40ac6a",
+        "type": "switch",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload.settings_window_mac",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ObjectID",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "dd0597cddfb80f76"
+            ]
+        ]
+    },
+    {
+        "id": "f07e23bce8b2deba",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    'settings_window_mac': $globalContext(\"ObjectID\")\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2220,
+        "y": 160,
+        "wires": [
+            [
+                "8c13d64a90ae2a99"
+            ]
+        ]
+    },
+    {
+        "id": "4863c12573bdacf5",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    'settings_window_mac': $globalContext(\"ObjectID\")\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2220,
+        "y": 220,
+        "wires": [
+            [
+                "57d151973f874bda"
+            ]
+        ]
+    },
+    {
+        "id": "42ac0859234ecbdf",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    'settings_window_mac': $globalContext(\"ObjectID\")\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2220,
+        "y": 280,
+        "wires": [
+            [
+                "e75a35872aca94ef"
+            ]
+        ]
+    },
+    {
+        "id": "cafcf024b381eddb",
+        "type": "comment",
+        "z": "b0701f164c4c3557",
+        "name": "Water sensor",
+        "info": "\nPCF8591\n - VCC -> 3v3\n - GND -> GND\n - SCL -> SCL1\n - SDA -> SDA1\n - AIN0 -> g25\n\nRaindrop Sensor\n - DO -> GPIO17\n - AO -> h25\n - VCC -> 3v3\n - GND -> GND",
+        "x": 470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "9eb4491290688dfd",
+        "type": "mqtt in",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowWindowStatus",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1600,
+        "y": 360,
+        "wires": [
+            [
+                "86547de323d907f1"
+            ]
+        ]
+    },
+    {
+        "id": "fc5adacecf6f786f",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "window_status",
+                "pt": "global",
+                "to": "payload.window_status",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2010,
+        "y": 360,
+        "wires": [
+            [
+                "c21a9f86d9054afd"
+            ]
+        ]
+    },
+    {
+        "id": "86547de323d907f1",
+        "type": "switch",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload.settings_window_mac",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ObjectID",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1810,
+        "y": 360,
+        "wires": [
+            [
+                "fc5adacecf6f786f"
+            ]
+        ]
+    },
+    {
+        "id": "4558052eab9cf7ec",
+        "type": "mqtt in",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowFetchWindowStatusInput",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2b9358bdd43541e3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1630,
+        "y": 420,
+        "wires": [
+            [
+                "42bf453b9e60729a"
+            ]
+        ]
+    },
+    {
+        "id": "5e7dbe5bb9561d77",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "window_status",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2040,
+        "y": 420,
+        "wires": [
+            [
+                "c7104878188d9751"
+            ]
+        ]
+    },
+    {
+        "id": "c7104878188d9751",
+        "type": "mqtt out",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "topic": "SmartWindowFetchWindowStatusOutput",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2b9358bdd43541e3",
+        "x": 2320,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "42bf453b9e60729a",
+        "type": "switch",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "property": "payload.settings_window_mac",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ObjectID",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1870,
+        "y": 420,
+        "wires": [
+            [
+                "5e7dbe5bb9561d77",
+                "0f2d7900b695db38"
+            ]
+        ]
+    },
+    {
+        "id": "0f2d7900b695db38",
+        "type": "debug",
+        "z": "b0701f164c4c3557",
+        "name": "debug 31",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2040,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c21a9f86d9054afd",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "window_status",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2240,
+        "y": 360,
+        "wires": [
+            [
+                "52d834c65e072bcd"
+            ]
+        ]
+    },
+    {
+        "id": "ac3cbf488d1ec79b",
+        "type": "rpi-gpio out",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "pin": "20",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 3020,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "38173a4fd1ca2ca3",
+        "type": "rpi-gpio out",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "pin": "21",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 3020,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f6f40cffaa15bca0",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2820,
+        "y": 380,
+        "wires": [
+            [
+                "ac3cbf488d1ec79b"
+            ]
+        ]
+    },
+    {
+        "id": "64a403718b157a6f",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2820,
+        "y": 500,
+        "wires": [
+            [
+                "ac3cbf488d1ec79b"
+            ]
+        ]
+    },
+    {
+        "id": "3a6938fcaff9335f",
+        "type": "change",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2820,
+        "y": 460,
+        "wires": [
+            [
+                "38173a4fd1ca2ca3"
+            ]
+        ]
+    },
+    {
+        "id": "380eeee749e206d2",
+        "type": "inject",
+        "z": "b0701f164c4c3557",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2070,
+        "y": 320,
+        "wires": [
+            [
+                "c21a9f86d9054afd"
+            ]
+        ]
+    },
+    {
+        "id": "2b9358bdd43541e3",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
